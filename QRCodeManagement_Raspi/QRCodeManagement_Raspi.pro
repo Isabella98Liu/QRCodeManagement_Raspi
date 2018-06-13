@@ -4,8 +4,8 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
-
+QT       +=     core gui widgets multimedia multimediawidgets
+QT       +=     sql
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = QRCodeManagement_Raspi
@@ -25,10 +25,28 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+    1_Menu/menu.cpp \
+    2_Manage/manage.cpp \
+    3_Scan/scan.cpp \
+    4_AddInfo/addinfo.cpp \
+    SQLite/database.cpp
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+    1_Menu/menu.h \
+    2_Manage/manage.h \
+    3_Scan/scan.h \
+    4_AddInfo/addinfo.h \
+    SQLite/database.h \
+    QSS/qss.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    1_Menu/menu.ui \
+    2_Manage/manage.ui \
+    3_Scan/scan.ui \
+    4_AddInfo/addinfo.ui
+
+RESOURCES += \
+    qresource.qrc

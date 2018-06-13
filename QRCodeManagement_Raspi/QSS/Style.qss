@@ -1,0 +1,38 @@
+/* ---------------QSS Style Sheet for 【QPushButton】----------------*/
+
+QPushButton{
+    border: 2px solid #8f8f91;
+    border-radius: 8px;
+}
+
+QPushButton:pressed{
+    background-color : LightGray
+}
+
+QPushButton:hover{
+    background-color : LightGray
+}
+
+
+/* ---------------QSS Style Sheet for 【returnButton】----------------*/
+
+QPushButton#returnButton{
+    border: 0px solid #8f8f91;
+    border-radius: 6px;
+}
+
+QPushButton#returnButton:hover{
+    background-color : LightGray
+}
+
+/* ---------------QSS Style Sheet for 【searchButton】----------------*/
+
+QPushButton#searchButton{
+    border: 2px solid #8f8f91;
+    border-radius: 6px;
+}
+
+QPushButton#searchButton:pressed{
+    background-color : Gray
+}
+

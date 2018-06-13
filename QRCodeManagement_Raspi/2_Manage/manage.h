@@ -1,0 +1,22 @@
+#ifndef MANAGE_H
+#define MANAGE_H
+
+#include <QWidget>
+
+namespace Ui {
+class Manage;
+}
+
+class Manage : public QWidget
+{
+    Q_OBJECT
+
+public:
+    explicit Manage(QWidget *parent = 0);
+    ~Manage();
+
+private:
+    Ui::Manage *ui;
+};
+
+#endif // MANAGE_H
