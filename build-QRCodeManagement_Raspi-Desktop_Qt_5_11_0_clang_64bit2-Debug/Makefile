@@ -12,10 +12,10 @@ MAKEFILE      = Makefile
 
 CC            = /Library/Developer/CommandLineTools/usr/bin/clang
 CXX           = /Library/Developer/CommandLineTools/usr/bin/clang++
-DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
+DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_WIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_SQL_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g $(EXPORT_ARCH_ARGS) -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -mmacosx-version-min=10.11 -Wall -W -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -stdlib=libc++ -g -std=gnu++11 $(EXPORT_ARCH_ARGS) -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -mmacosx-version-min=10.11 -Wall -W -fPIC $(DEFINES)
-INCPATH       = -I../QRCodeManagement_Raspi -I. -I../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers -I../../../Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers -I../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/AGL.framework/Headers -I. -I../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/macx-clang -F/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib
+INCPATH       = -I../QRCodeManagement_Raspi -I. -I../../../Qt_OpenSource/5.11.0/clang_64/lib/QtMultimediaWidgets.framework/Headers -I../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers -I../../../Qt_OpenSource/5.11.0/clang_64/lib/QtMultimedia.framework/Headers -I../../../Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers -I../../../Qt_OpenSource/5.11.0/clang_64/lib/QtNetwork.framework/Headers -I../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers -I../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/AGL.framework/Headers -I. -I../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/macx-clang -F/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib
 QMAKE         = /Users/Isabella/Qt_OpenSource/5.11.0/clang_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -38,7 +38,7 @@ DISTNAME      = QRCodeManagement_Raspi1.0.0
 DISTDIR = /Users/Isabella/Qt_Softwares/QRCodeManager_Raspi/build-QRCodeManagement_Raspi-Desktop_Qt_5_11_0_clang_64bit2-Debug/.tmp/QRCodeManagement_Raspi1.0.0
 LINK          = /Library/Developer/CommandLineTools/usr/bin/clang++
 LFLAGS        = -stdlib=libc++ -headerpad_max_install_names $(EXPORT_ARCH_ARGS) -Wl,-syslibroot,/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -mmacosx-version-min=10.11 -Wl,-rpath,@executable_path/Frameworks -Wl,-rpath,/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib
-LIBS          = $(SUBLIBS) -F/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib -framework QtWidgets -framework QtGui -framework QtCore -framework DiskArbitration -framework IOKit -framework OpenGL -framework AGL 
+LIBS          = $(SUBLIBS) -F/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib -framework QtMultimediaWidgets -framework QtMultimedia -framework QtNetwork -framework QtCore -framework DiskArbitration -framework IOKit -framework QtGui -framework QtWidgets -framework QtSql -framework OpenGL -framework AGL 
 AR            = /Library/Developer/CommandLineTools/usr/bin/ar cq
 RANLIB        = /Library/Developer/CommandLineTools/usr/bin/ranlib -s
 SED           = sed
@@ -237,6 +237,7 @@ DIST          = ../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/spec_pre
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/qt_config.prf \
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/macx-clang/qmake.conf \
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/spec_post.prf \
+		../QRCodeManagement_Raspi/.qmake.stash \
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/exclusive_builds.prf \
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/mac/sdk.prf \
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/toolchain.prf \
@@ -456,6 +457,7 @@ Makefile: ../QRCodeManagement_Raspi/QRCodeManagement_Raspi.pro ../../../Qt_OpenS
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/qt_config.prf \
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/macx-clang/qmake.conf \
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/exclusive_builds.prf \
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/mac/sdk.prf \
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/toolchain.prf \
@@ -485,8 +487,12 @@ Makefile: ../QRCodeManagement_Raspi/QRCodeManagement_Raspi.pro ../../../Qt_OpenS
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/lex.prf \
 		../QRCodeManagement_Raspi/QRCodeManagement_Raspi.pro \
 		../QRCodeManagement_Raspi/qresource.qrc \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtMultimediaWidgets.framework/QtMultimediaWidgets.prl \
 		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/QtWidgets.prl \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtMultimedia.framework/QtMultimedia.prl \
 		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/QtGui.prl \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtNetwork.framework/QtNetwork.prl \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/QtSql.prl \
 		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/QtCore.prl
 	$(QMAKE) -o Makefile ../QRCodeManagement_Raspi/QRCodeManagement_Raspi.pro -spec macx-clang CONFIG+=debug CONFIG+=x86_64 CONFIG+=qml_debug
 ../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/spec_pre.prf:
@@ -651,6 +657,7 @@ Makefile: ../QRCodeManagement_Raspi/QRCodeManagement_Raspi.pro ../../../Qt_OpenS
 ../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/qt_config.prf:
 ../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/macx-clang/qmake.conf:
 ../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 ../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/exclusive_builds.prf:
 ../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/mac/sdk.prf:
 ../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/toolchain.prf:
@@ -680,8 +687,12 @@ Makefile: ../QRCodeManagement_Raspi/QRCodeManagement_Raspi.pro ../../../Qt_OpenS
 ../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/lex.prf:
 ../QRCodeManagement_Raspi/QRCodeManagement_Raspi.pro:
 ../QRCodeManagement_Raspi/qresource.qrc:
+../../../Qt_OpenSource/5.11.0/clang_64/lib/QtMultimediaWidgets.framework/QtMultimediaWidgets.prl:
 ../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/QtWidgets.prl:
+../../../Qt_OpenSource/5.11.0/clang_64/lib/QtMultimedia.framework/QtMultimedia.prl:
 ../../../Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/QtGui.prl:
+../../../Qt_OpenSource/5.11.0/clang_64/lib/QtNetwork.framework/QtNetwork.prl:
+../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/QtSql.prl:
 ../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/QtCore.prl:
 qmake: FORCE
 	@$(QMAKE) -o Makefile ../QRCodeManagement_Raspi/QRCodeManagement_Raspi.pro -spec macx-clang CONFIG+=debug CONFIG+=x86_64 CONFIG+=qml_debug
@@ -726,6 +737,7 @@ clean: compiler_clean
 
 distclean: clean 
 	-$(DEL_FILE) -r QRCodeManagement_Raspi.app
+	-$(DEL_FILE) .qmake.stash
 	-$(DEL_FILE) Makefile
 
 
@@ -761,35 +773,54 @@ moc_mainwindow.cpp: ../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framewo
 		../QRCodeManagement_Raspi/mainwindow.h \
 		moc_predefs.h \
 		../../../Qt_OpenSource/5.11.0/clang_64/bin/moc
-	/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/mkspecs/macx-clang -I/Users/Isabella/Qt_Softwares/QRCodeManager_Raspi/QRCodeManagement_Raspi -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -F/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib ../QRCodeManagement_Raspi/mainwindow.h -o moc_mainwindow.cpp
+	/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/mkspecs/macx-clang -I/Users/Isabella/Qt_Softwares/QRCodeManager_Raspi/QRCodeManagement_Raspi -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtMultimediaWidgets.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtMultimedia.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtNetwork.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -F/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib ../QRCodeManagement_Raspi/mainwindow.h -o moc_mainwindow.cpp
 
 moc_menu.cpp: ../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
 		../QRCodeManagement_Raspi/1_Menu/menu.h \
 		moc_predefs.h \
 		../../../Qt_OpenSource/5.11.0/clang_64/bin/moc
-	/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/mkspecs/macx-clang -I/Users/Isabella/Qt_Softwares/QRCodeManager_Raspi/QRCodeManagement_Raspi -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -F/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib ../QRCodeManagement_Raspi/1_Menu/menu.h -o moc_menu.cpp
+	/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/mkspecs/macx-clang -I/Users/Isabella/Qt_Softwares/QRCodeManager_Raspi/QRCodeManagement_Raspi -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtMultimediaWidgets.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtMultimedia.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtNetwork.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -F/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib ../QRCodeManagement_Raspi/1_Menu/menu.h -o moc_menu.cpp
 
 moc_manage.cpp: ../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
 		../QRCodeManagement_Raspi/2_Manage/manage.h \
 		moc_predefs.h \
 		../../../Qt_OpenSource/5.11.0/clang_64/bin/moc
-	/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/mkspecs/macx-clang -I/Users/Isabella/Qt_Softwares/QRCodeManager_Raspi/QRCodeManagement_Raspi -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -F/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib ../QRCodeManagement_Raspi/2_Manage/manage.h -o moc_manage.cpp
+	/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/mkspecs/macx-clang -I/Users/Isabella/Qt_Softwares/QRCodeManager_Raspi/QRCodeManagement_Raspi -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtMultimediaWidgets.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtMultimedia.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtNetwork.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -F/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib ../QRCodeManagement_Raspi/2_Manage/manage.h -o moc_manage.cpp
 
 moc_scan.cpp: ../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
 		../QRCodeManagement_Raspi/3_Scan/scan.h \
 		moc_predefs.h \
 		../../../Qt_OpenSource/5.11.0/clang_64/bin/moc
-	/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/mkspecs/macx-clang -I/Users/Isabella/Qt_Softwares/QRCodeManager_Raspi/QRCodeManagement_Raspi -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -F/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib ../QRCodeManagement_Raspi/3_Scan/scan.h -o moc_scan.cpp
+	/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/mkspecs/macx-clang -I/Users/Isabella/Qt_Softwares/QRCodeManager_Raspi/QRCodeManagement_Raspi -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtMultimediaWidgets.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtMultimedia.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtNetwork.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -F/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib ../QRCodeManagement_Raspi/3_Scan/scan.h -o moc_scan.cpp
 
-moc_addinfo.cpp: ../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/QWidget \
+moc_addinfo.cpp: ../QRCodeManagement_Raspi/SQLite/database.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QDebug \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qdebug.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QString \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QDateTime \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qdatetime.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/QApplication \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/qapplication.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSql \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qtsqlglobal.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSqlDatabase \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qsqldatabase.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSqlError \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qsqlerror.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSqlQuery \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QVariantList \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qvariant.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
 		../QRCodeManagement_Raspi/4_AddInfo/addinfo.h \
 		moc_predefs.h \
 		../../../Qt_OpenSource/5.11.0/clang_64/bin/moc
-	/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/mkspecs/macx-clang -I/Users/Isabella/Qt_Softwares/QRCodeManager_Raspi/QRCodeManagement_Raspi -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -F/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib ../QRCodeManagement_Raspi/4_AddInfo/addinfo.h -o moc_addinfo.cpp
+	/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/mkspecs/macx-clang -I/Users/Isabella/Qt_Softwares/QRCodeManager_Raspi/QRCodeManagement_Raspi -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtMultimediaWidgets.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtMultimedia.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtNetwork.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -F/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib ../QRCodeManagement_Raspi/4_AddInfo/addinfo.h -o moc_addinfo.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -868,12 +899,49 @@ scan.o: ../QRCodeManagement_Raspi/3_Scan/scan.cpp ../QRCodeManagement_Raspi/3_Sc
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o scan.o ../QRCodeManagement_Raspi/3_Scan/scan.cpp
 
 addinfo.o: ../QRCodeManagement_Raspi/4_AddInfo/addinfo.cpp ../QRCodeManagement_Raspi/4_AddInfo/addinfo.h \
+		../QRCodeManagement_Raspi/SQLite/database.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QDebug \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qdebug.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QString \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QDateTime \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qdatetime.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/QApplication \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/qapplication.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSql \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qtsqlglobal.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSqlDatabase \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qsqldatabase.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSqlError \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qsqlerror.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSqlQuery \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QVariantList \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qvariant.h \
 		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
 		ui_addinfo.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o addinfo.o ../QRCodeManagement_Raspi/4_AddInfo/addinfo.cpp
 
-database.o: ../QRCodeManagement_Raspi/SQLite/database.cpp ../QRCodeManagement_Raspi/SQLite/database.h
+database.o: ../QRCodeManagement_Raspi/SQLite/database.cpp ../QRCodeManagement_Raspi/SQLite/database.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QDebug \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qdebug.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QString \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QDateTime \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qdatetime.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/QApplication \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/qapplication.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSql \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qtsqlglobal.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSqlDatabase \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qsqldatabase.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSqlError \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qsqlerror.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSqlQuery \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QVariantList \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qvariant.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o database.o ../QRCodeManagement_Raspi/SQLite/database.cpp
 
 qrc_qresource.o: qrc_qresource.cpp 

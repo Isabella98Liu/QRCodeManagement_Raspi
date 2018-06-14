@@ -20,7 +20,7 @@ public:
     QString Name;
     QString College;
     QString Major;
-    QDateTime time;
+    QString time;
 };
 
 
@@ -31,9 +31,9 @@ public:
     QSqlDatabase database;
     QString folderPath;
     void DatabaseOperate();
-    void DatabaseCreate(QSqlQuery);
-    void DatabaseInsert(QSqlQuery);
-    void DatabaseSelect(QSqlQuery);
+    void DatabaseCreate();
+    void DatabaseInsert(Record*);
+    void DatabaseSelect();
 };
 
 #endif // DATABASE_H

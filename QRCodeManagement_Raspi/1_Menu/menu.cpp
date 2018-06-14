@@ -12,3 +12,11 @@ Menu::~Menu()
 {
     delete ui;
 }
+
+//--------------------------SLOTS------------------------
+void Menu::on_pushButton_2_clicked()    //  Switch to AddInfo Page
+{
+    AddInfo *addInfo = new AddInfo;
+    this->setVisible(false);
+    addInfo->show();
+}
