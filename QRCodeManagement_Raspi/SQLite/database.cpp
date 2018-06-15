@@ -81,19 +81,27 @@ void Database::DatabaseInsert(Record* record)   //  Insert the input record into
         else
         {
             qDebug() << "Insert Successfully!";
+            //---------------------------------------------------
+            //  linking to python file should be done here
+            //---------------------------------------------------
+            //  【NOT FINISH PART】
+            //---------------------------------------------------
         }
     }
     database.close();
 
 }
 
-void Database::DatabaseSelect() //  select all record from Table RECORD
+QSqlQueryModel* Database::DatabaseSelect(QString StdID_index) //  select the specific record according to [index]
 {
-    if(database.open())
-    {
-
-    }
-    database.close();
+    QSqlQueryModel *model = new QSqlQueryModel;
+    model->setQuery(QString("SELECT * FROM RECORD WHERE StdID = '%1'").arg(StdID_index));
+    model->setHeaderData(0, Qt::Horizontal, "学号");
+    model->setHeaderData(1, Qt::Horizontal, "姓名");
+    model->setHeaderData(2, Qt::Horizontal, "学院");
+    model->setHeaderData(3, Qt::Horizontal, "专业");
+    model->setHeaderData(4, Qt::Horizontal,"操作时间");
+    return model;
 }
 
 bool Database::DatabaseTableCheck(QString Name) // Check if the [Name] Table exists in the current database; if exists, return TRUE
@@ -118,12 +126,11 @@ QSqlQueryModel* Database::DatabaseTableView()   //  show all table record in tab
 {
     QSqlQueryModel *model = new QSqlQueryModel;
     model->setQuery("SELECT * FROM RECORD");
-    model->setHeaderData(0, Qt::Horizontal, "StdID");
-    model->setHeaderData(1, Qt::Horizontal, "Name");
-    model->setHeaderData(2, Qt::Horizontal, "College");
-    model->setHeaderData(3, Qt::Horizontal, "Major");
-    model->setHeaderData(4, Qt::Horizontal,"Time");
-
+    model->setHeaderData(0, Qt::Horizontal, "学号");
+    model->setHeaderData(1, Qt::Horizontal, "姓名");
+    model->setHeaderData(2, Qt::Horizontal, "学院");
+    model->setHeaderData(3, Qt::Horizontal, "专业");
+    model->setHeaderData(4, Qt::Horizontal,"操作时间");
     return model;
 }
 

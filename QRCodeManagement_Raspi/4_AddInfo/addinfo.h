@@ -6,6 +6,7 @@
 #include <QDateTime>
 #include <QDebug>
 #include <QString>
+#include <QTimer>
 
 namespace Ui {
 class AddInfo;
@@ -22,13 +23,15 @@ public:
 
 private slots:
     void on_pushButton_clicked();
-
     void on_pushButton_2_clicked();
+    void resetTips();
 
 signals:
     void returnPage();
+
 private:
     Ui::AddInfo *ui;
+    QTimer *tipsDisplay;
 };
 
 #endif // ADDINFO_H

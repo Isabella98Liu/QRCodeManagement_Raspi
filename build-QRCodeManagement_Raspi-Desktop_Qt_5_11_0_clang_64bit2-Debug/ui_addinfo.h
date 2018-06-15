@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QWidget>
@@ -26,6 +27,7 @@ public:
     QLineEdit *Major;
     QPushButton *pushButton;
     QPushButton *pushButton_2;
+    QLabel *Tips;
 
     void setupUi(QWidget *AddInfo)
     {
@@ -34,25 +36,28 @@ public:
         AddInfo->resize(640, 480);
         StdID = new QLineEdit(AddInfo);
         StdID->setObjectName(QStringLiteral("StdID"));
-        StdID->setGeometry(QRect(40, 140, 121, 21));
+        StdID->setGeometry(QRect(130, 150, 121, 21));
         Name = new QLineEdit(AddInfo);
         Name->setObjectName(QStringLiteral("Name"));
-        Name->setGeometry(QRect(40, 180, 121, 24));
+        Name->setGeometry(QRect(130, 190, 121, 24));
         College = new QLineEdit(AddInfo);
         College->setObjectName(QStringLiteral("College"));
-        College->setGeometry(QRect(40, 220, 121, 24));
+        College->setGeometry(QRect(130, 230, 121, 24));
         Major = new QLineEdit(AddInfo);
         Major->setObjectName(QStringLiteral("Major"));
-        Major->setGeometry(QRect(40, 260, 121, 24));
+        Major->setGeometry(QRect(130, 270, 121, 24));
         pushButton = new QPushButton(AddInfo);
         pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(350, 170, 161, 71));
+        pushButton->setGeometry(QRect(400, 180, 161, 71));
         QFont font;
         font.setPointSize(20);
         pushButton->setFont(font);
         pushButton_2 = new QPushButton(AddInfo);
         pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
         pushButton_2->setGeometry(QRect(50, 30, 80, 24));
+        Tips = new QLabel(AddInfo);
+        Tips->setObjectName(QStringLiteral("Tips"));
+        Tips->setGeometry(QRect(250, 420, 161, 21));
 
         retranslateUi(AddInfo);
 
@@ -64,6 +69,7 @@ public:
         AddInfo->setWindowTitle(QApplication::translate("AddInfo", "Form", nullptr));
         pushButton->setText(QApplication::translate("AddInfo", "\346\267\273\345\212\240\350\256\260\345\275\225", nullptr));
         pushButton_2->setText(QApplication::translate("AddInfo", "\350\277\224\345\233\236", nullptr));
+        Tips->setText(QString());
     } // retranslateUi
 
 };

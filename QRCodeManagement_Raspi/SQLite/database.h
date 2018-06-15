@@ -34,9 +34,9 @@ public:
     void DatabaseOperate();
     void DatabaseCreate();
     void DatabaseInsert(Record*);
-    void DatabaseSelect();
     bool DatabaseTableCheck(QString);
     QSqlQueryModel* DatabaseTableView();
+    QSqlQueryModel* DatabaseSelect(QString);
 };
 
 #endif // DATABASE_H

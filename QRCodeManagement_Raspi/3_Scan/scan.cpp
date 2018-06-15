@@ -12,3 +12,12 @@ Scan::~Scan()
 {
     delete ui;
 }
+
+//---------------------------SLOTS-----------------------------
+
+void Scan::on_pushButton_clicked()  //  if the search button was clicked
+{
+    QString index = ui->lineEdit->text();
+    Database database;
+    ui->tableView->setModel(database.DatabaseSelect(index));
+}

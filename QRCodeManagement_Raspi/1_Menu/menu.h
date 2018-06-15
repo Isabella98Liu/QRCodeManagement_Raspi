@@ -2,6 +2,7 @@
 #define MENU_H
 
 #include "2_Manage/manage.h"
+#include "3_Scan/scan.h"
 #include "4_AddInfo/addinfo.h"
 #include <QWidget>
 
@@ -21,6 +22,8 @@ private slots:
     void on_pushButton_clicked();
     void on_pushButton_2_clicked();
     void showPage();
+
+    void on_pushButton_3_clicked();
 
 private:
     Ui::Menu *ui;

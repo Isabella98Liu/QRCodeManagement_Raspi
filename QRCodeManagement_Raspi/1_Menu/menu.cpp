@@ -30,8 +30,16 @@ void Menu::on_pushButton_2_clicked()    //  Switch to AddInfo Page
     addInfo->show();
 }
 
+void Menu::on_pushButton_3_clicked()    //  if the scan button was clicked
+{
+    Scan *scanInfo = new Scan;
+    scanInfo->setVisible(false);
+    scanInfo->show();
+}
+
 void Menu::showPage()   //  if slot[returnPage()] was triggered, show current menu page
 {
     this->setVisible(true);
 }
+
 
