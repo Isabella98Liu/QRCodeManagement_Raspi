@@ -10,6 +10,7 @@
 #include <QSqlDatabase>
 #include <QSqlError>
 #include <QSqlQuery>
+#include <QSqlQueryModel>
 #include <QVariantList>
 //----------------------------------------
 
@@ -34,6 +35,8 @@ public:
     void DatabaseCreate();
     void DatabaseInsert(Record*);
     void DatabaseSelect();
+    bool DatabaseTableCheck(QString);
+    QSqlQueryModel* DatabaseTableView();
 };
 
 #endif // DATABASE_H

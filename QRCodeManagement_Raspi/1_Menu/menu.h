@@ -1,6 +1,7 @@
 #ifndef MENU_H
 #define MENU_H
 
+#include "2_Manage/manage.h"
 #include "4_AddInfo/addinfo.h"
 #include <QWidget>
 
@@ -17,6 +18,7 @@ public:
     ~Menu();
 
 private slots:
+    void on_pushButton_clicked();
     void on_pushButton_2_clicked();
 
 private:

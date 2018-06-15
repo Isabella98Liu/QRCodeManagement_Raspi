@@ -2,6 +2,8 @@
 #define MANAGE_H
 
 #include <QWidget>
+#include <QTableView>
+#include "SQLite/database.h"
 
 namespace Ui {
 class Manage;

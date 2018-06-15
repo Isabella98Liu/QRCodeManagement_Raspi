@@ -11,6 +11,8 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QHeaderView>
+#include <QtWidgets/QTableView>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -18,12 +20,16 @@ QT_BEGIN_NAMESPACE
 class Ui_Manage
 {
 public:
+    QTableView *tableView;
 
     void setupUi(QWidget *Manage)
     {
         if (Manage->objectName().isEmpty())
             Manage->setObjectName(QStringLiteral("Manage"));
         Manage->resize(640, 480);
+        tableView = new QTableView(Manage);
+        tableView->setObjectName(QStringLiteral("tableView"));
+        tableView->setGeometry(QRect(30, 30, 571, 391));
 
         retranslateUi(Manage);
 

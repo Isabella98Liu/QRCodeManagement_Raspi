@@ -6,6 +6,8 @@ Manage::Manage(QWidget *parent) :
     ui(new Ui::Manage)
 {
     ui->setupUi(this);
+    Database database;
+    ui->tableView->setModel(database.DatabaseTableView());  // show all records in table
 }
 
 Manage::~Manage()

@@ -5,11 +5,22 @@ Database::Database()
     database = QSqlDatabase::addDatabase("QSQLITE");    //  link to a database
     folderPath = qApp->applicationDirPath();    //  get the directory path of the applicaiton
     database.setDatabaseName(QString(folderPath + "/Record.db"));   //  rename the database, if the database does not exists, then create, else if it exists, then use it
+    database.open();
+    QString count_sql_table = "SELECT COUNT(*) FROM RECORD";
+    QSqlQuery sql_query;
+    sql_query.prepare(count_sql_table);
+    sql_query.exec();
+    qDebug() << sql_query.last();
+
 }
 
 void Database::DatabaseOperate()    //  operations to the daatabse
 {
+    if(database.open())
+    {
 
+    }
+    database.close();
 }
 
 void Database::DatabaseCreate()  //  create the table
@@ -17,21 +28,7 @@ void Database::DatabaseCreate()  //  create the table
     if(database.open())
     {
         QSqlQuery sql_query;
-        // Check if the RECORD Table exists in the database
-        bool isTableExist = false;
-        QString check_sql = "SELECT COUNT(*) FROM SQLITE_MASTER WHERE TYPE='TABLE' AND NAME='%1'";
-        sql_query.prepare(check_sql.arg("RECORD"));
-        if(!sql_query.exec())
-        {
-            qDebug() << "Check Action Failed!";
-        }
-        else
-        {
-            isTableExist = sql_query.exec();
-            qDebug() << "Check Action Done!";
-        }
-        //  Create the RECORD Table if it does not exist
-        if(!isTableExist)
+        if(!DatabaseTableCheck("RECORD"))
         {
             QString create_sql = "CREATE TABLE RECORD (StdID INT PRIMARY KEY, Name STRING, College STRING, Major STRING, Time STRING)";
             sql_query.prepare(create_sql);
@@ -45,15 +42,11 @@ void Database::DatabaseCreate()  //  create the table
                 qDebug() << "Table Created Successfully!";
             }
         }
-        else
-        {
-            qDebug() << "RECORD Table already exists";
-        }
     }
     database.close();
 }
 
-void Database::DatabaseInsert(Record* record)
+void Database::DatabaseInsert(Record* record)   //  Insert the input record into the table RECORD
 {
     if(database.open())
     {
@@ -94,7 +87,44 @@ void Database::DatabaseInsert(Record* record)
 
 }
 
-void Database::DatabaseSelect()
+void Database::DatabaseSelect() //  select all record from Table RECORD
 {
+    if(database.open())
+    {
 
+    }
+    database.close();
 }
+
+bool Database::DatabaseTableCheck(QString Name) // Check if the [Name] Table exists in the current database; if exists, return TRUE
+{
+    QSqlQuery sql_query;
+    QString check_sql = "SELECT COUNT(*) FROM SQLITE_MASTER WHERE TYPE='TABLE' AND NAME='%1'";
+    sql_query.prepare(check_sql.arg(Name));
+    if(!sql_query.exec())
+    {
+        qDebug() << "There Is No Table Named:" + Name;
+        return false;
+    }
+    else
+    {
+        qDebug() << "Table Named:" + Name + " Already Exists!";
+        return true;
+    }
+    return false;
+}
+
+QSqlQueryModel* Database::DatabaseTableView()   //  show all table record in table
+{
+    QSqlQueryModel *model = new QSqlQueryModel;
+    model->setQuery("SELECT * FROM RECORD");
+    model->setHeaderData(0, Qt::Horizontal, "StdID");
+    model->setHeaderData(1, Qt::Horizontal, "Name");
+    model->setHeaderData(2, Qt::Horizontal, "College");
+    model->setHeaderData(3, Qt::Horizontal, "Major");
+    model->setHeaderData(4, Qt::Horizontal,"Time");
+
+    return model;
+}
+
+

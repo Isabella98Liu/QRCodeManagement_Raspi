@@ -14,6 +14,13 @@ Menu::~Menu()
 }
 
 //--------------------------SLOTS------------------------
+void Menu::on_pushButton_clicked()
+{
+    Manage *manage = new Manage;
+    this->setVisible(false);
+    manage->show();
+}
+
 void Menu::on_pushButton_2_clicked()    //  Switch to AddInfo Page
 {
     AddInfo *addInfo = new AddInfo;
