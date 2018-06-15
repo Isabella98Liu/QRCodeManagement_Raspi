@@ -14,3 +14,10 @@ Manage::~Manage()
 {
     delete ui;
 }
+
+
+void Manage::on_pushButton_clicked()    //  if the return button was clicked
+{
+    emit returnPage();
+    delete this;
+}

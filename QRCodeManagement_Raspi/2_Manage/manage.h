@@ -19,6 +19,11 @@ public:
 
 private:
     Ui::Manage *ui;
+
+signals:
+    void returnPage();
+private slots:
+    void on_pushButton_clicked();
 };
 
 #endif // MANAGE_H

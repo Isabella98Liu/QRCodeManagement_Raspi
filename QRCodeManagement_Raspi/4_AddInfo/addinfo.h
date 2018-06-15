@@ -23,6 +23,10 @@ public:
 private slots:
     void on_pushButton_clicked();
 
+    void on_pushButton_2_clicked();
+
+signals:
+    void returnPage();
 private:
     Ui::AddInfo *ui;
 };

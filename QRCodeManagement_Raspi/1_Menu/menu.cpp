@@ -17,6 +17,7 @@ Menu::~Menu()
 void Menu::on_pushButton_clicked()
 {
     Manage *manage = new Manage;
+    connect(manage, SIGNAL(returnPage()), this, SLOT(showPage()));
     this->setVisible(false);
     manage->show();
 }
@@ -24,6 +25,13 @@ void Menu::on_pushButton_clicked()
 void Menu::on_pushButton_2_clicked()    //  Switch to AddInfo Page
 {
     AddInfo *addInfo = new AddInfo;
+    connect(addInfo, SIGNAL(returnPage()), this, SLOT(showPage()));
     this->setVisible(false);
     addInfo->show();
 }
+
+void Menu::showPage()   //  if slot[returnPage()] was triggered, show current menu page
+{
+    this->setVisible(true);
+}
+

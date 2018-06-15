@@ -29,3 +29,9 @@ void AddInfo::on_pushButton_clicked()   //  if the AddInfo Button was clicked
     // Store Record into database
     database.DatabaseInsert(record);
 }
+
+void AddInfo::on_pushButton_2_clicked() //  if the return button was clicked
+{
+    emit returnPage();
+    delete this;
+}

@@ -25,6 +25,7 @@ public:
     QLineEdit *College;
     QLineEdit *Major;
     QPushButton *pushButton;
+    QPushButton *pushButton_2;
 
     void setupUi(QWidget *AddInfo)
     {
@@ -49,6 +50,9 @@ public:
         QFont font;
         font.setPointSize(20);
         pushButton->setFont(font);
+        pushButton_2 = new QPushButton(AddInfo);
+        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
+        pushButton_2->setGeometry(QRect(50, 30, 80, 24));
 
         retranslateUi(AddInfo);
 
@@ -59,6 +63,7 @@ public:
     {
         AddInfo->setWindowTitle(QApplication::translate("AddInfo", "Form", nullptr));
         pushButton->setText(QApplication::translate("AddInfo", "\346\267\273\345\212\240\350\256\260\345\275\225", nullptr));
+        pushButton_2->setText(QApplication::translate("AddInfo", "\350\277\224\345\233\236", nullptr));
     } // retranslateUi
 
 };

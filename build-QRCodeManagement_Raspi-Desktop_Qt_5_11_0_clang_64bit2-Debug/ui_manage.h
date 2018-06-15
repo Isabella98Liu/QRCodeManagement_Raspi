@@ -12,6 +12,7 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QTableView>
 #include <QtWidgets/QWidget>
 
@@ -21,6 +22,7 @@ class Ui_Manage
 {
 public:
     QTableView *tableView;
+    QPushButton *pushButton;
 
     void setupUi(QWidget *Manage)
     {
@@ -29,7 +31,10 @@ public:
         Manage->resize(640, 480);
         tableView = new QTableView(Manage);
         tableView->setObjectName(QStringLiteral("tableView"));
-        tableView->setGeometry(QRect(30, 30, 571, 391));
+        tableView->setGeometry(QRect(30, 50, 581, 411));
+        pushButton = new QPushButton(Manage);
+        pushButton->setObjectName(QStringLiteral("pushButton"));
+        pushButton->setGeometry(QRect(10, 10, 80, 24));
 
         retranslateUi(Manage);
 
@@ -39,6 +44,7 @@ public:
     void retranslateUi(QWidget *Manage)
     {
         Manage->setWindowTitle(QApplication::translate("Manage", "Form", nullptr));
+        pushButton->setText(QApplication::translate("Manage", "\350\277\224\345\233\236", nullptr));
     } // retranslateUi
 
 };
