@@ -2,6 +2,7 @@
 #define ADDINFO_H
 
 #include "SQLite/database.h"
+
 #include <QWidget>
 #include <QDateTime>
 #include <QDebug>

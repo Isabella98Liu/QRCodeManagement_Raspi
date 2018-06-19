@@ -5,6 +5,7 @@ Manage::Manage(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Manage)
 {
+    this->setWindowState(Qt::WindowMaximized);
     ui->setupUi(this);
     Database database;
     ui->tableView->setModel(database.DatabaseTableView());  // show all records in table

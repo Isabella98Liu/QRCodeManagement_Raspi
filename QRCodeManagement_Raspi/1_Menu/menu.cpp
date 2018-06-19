@@ -5,6 +5,7 @@ Menu::Menu(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Menu)
 {
+    this->setWindowState(Qt::WindowMaximized);
     ui->setupUi(this);
 }
 

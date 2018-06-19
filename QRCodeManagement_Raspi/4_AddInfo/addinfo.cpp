@@ -5,6 +5,7 @@ AddInfo::AddInfo(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::AddInfo)
 {
+//    this->setWindowState(Qt::WindowMaximized);
     ui->setupUi(this);
     database.DatabaseCreate();
 }

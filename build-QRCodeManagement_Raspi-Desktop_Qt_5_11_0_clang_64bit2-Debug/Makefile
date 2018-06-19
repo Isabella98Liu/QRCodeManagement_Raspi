@@ -12,10 +12,10 @@ MAKEFILE      = Makefile
 
 CC            = /Library/Developer/CommandLineTools/usr/bin/clang
 CXX           = /Library/Developer/CommandLineTools/usr/bin/clang++
-DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_WIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_SQL_LIB -DQT_CORE_LIB
+DEFINES       = -DQZXING_LIBRARY -DZXING_ICONV_CONST -DDISABLE_LIBRARY_FEATURES -DNOFMAXL -DNO_ICONV -DQT_DEPRECATED_WARNINGS -DQT_MULTIMEDIAWIDGETS_LIB -DQT_WIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_SQL_LIB -DQT_CORE_LIB -DQT_QML_DEBUG
 CFLAGS        = -pipe -g $(EXPORT_ARCH_ARGS) -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -mmacosx-version-min=10.11 -Wall -W -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -stdlib=libc++ -g -std=gnu++11 $(EXPORT_ARCH_ARGS) -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -mmacosx-version-min=10.11 -Wall -W -fPIC $(DEFINES)
-INCPATH       = -I../QRCodeManagement_Raspi -I. -I../../../Qt_OpenSource/5.11.0/clang_64/lib/QtMultimediaWidgets.framework/Headers -I../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers -I../../../Qt_OpenSource/5.11.0/clang_64/lib/QtMultimedia.framework/Headers -I../../../Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers -I../../../Qt_OpenSource/5.11.0/clang_64/lib/QtNetwork.framework/Headers -I../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers -I../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/AGL.framework/Headers -I. -I../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/macx-clang -F/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib
+INCPATH       = -I../QRCodeManagement_Raspi -I. -I../QRCodeManagement_Raspi/QZXing -I../QRCodeManagement_Raspi/QZXing/zxing -I../../../Qt_OpenSource/5.11.0/clang_64/lib/QtMultimediaWidgets.framework/Headers -I../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers -I../../../Qt_OpenSource/5.11.0/clang_64/lib/QtMultimedia.framework/Headers -I../../../Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers -I../../../Qt_OpenSource/5.11.0/clang_64/lib/QtNetwork.framework/Headers -I../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers -I../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/AGL.framework/Headers -I. -I../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/macx-clang -F/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib
 QMAKE         = /Users/Isabella/Qt_OpenSource/5.11.0/clang_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -50,19 +50,241 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../QRCodeManagement_Raspi/main.cpp \
+SOURCES       = ../QRCodeManagement_Raspi/QZXing/CameraImageWrapper.cpp \
+		../QRCodeManagement_Raspi/QZXing/QZXing.cpp \
+		../QRCodeManagement_Raspi/QZXing/ImageHandler.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultIO.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/InvertedLuminanceSource.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ChecksumException.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPointCallback.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Result.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Reader.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/MultiFormatReader.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/LuminanceSource.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/FormatException.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/DecodeHints.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BinaryBitmap.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Binarizer.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/aztec/AztecReader.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/aztec/AztecDetectorResult.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/StringUtils.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Str.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/PerspectiveTransform.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/HybridBinarizer.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/GridSampler.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/GreyscaleRotatedLuminanceSource.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/GreyscaleLuminanceSource.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/GlobalHistogramBinarizer.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/DetectorResult.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/DecoderResult.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/CharacterSetECI.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitSource.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArrayIO.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/detector/WhiteRectangleDetector.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/detector/MonochromeRectangleDetector.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/ReedSolomonException.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/ReedSolomonDecoder.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/GenericGFPoly.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/GenericGF.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/DataMatrixReader.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/UPCEReader.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/UPCEANReader.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/UPCAReader.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/OneDResultPoint.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/OneDReader.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/MultiFormatUPCEANReader.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/MultiFormatOneDReader.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/ITFReader.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/EAN13Reader.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/EAN8Reader.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/Code128Reader.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/Code39Reader.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/CodaBarReader.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/Code93Reader.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/QRCodeReader.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/MultipleBarcodeReader.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/GenericMultipleBarcodeReader.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/ByQuadrantReader.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/qrcode/QRCodeMultiReader.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/qrcode/detector/MultiFinderPatternFinder.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/qrcode/detector/MultiDetector.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/aztec/decoder/AztecDecoder.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/aztec/detector/AztecDetector.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/DataMatrixVersion.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/decoder/DataMatrixDecoder.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/decoder/DataMatrixBitMatrixParser.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/decoder/DataMatrixDataBlock.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/decoder/DataMatrixDecodedBitStreamParser.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/detector/DataMatrixCornerPoint.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/detector/DataMatrixDetector.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/detector/DataMatrixDetectorException.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/QRBitMatrixParser.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/QRDataBlock.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/QRDataMask.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/QRDecodedBitStreamParser.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/QRDecoder.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/QRMode.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/QRAlignmentPattern.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/QRAlignmentPatternFinder.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/QRDetector.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/QRFinderPattern.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/QRFinderPatternFinder.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/QRFinderPatternInfo.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/QRVersion.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/QRFormatInformation.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/QRErrorCorrectionLevel.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/ec/ErrorCorrection.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/ec/ModulusGF.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/ec/ModulusPoly.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/PDF417BitMatrixParser.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/PDF417DecodedBitStreamParser.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/PDF417Decoder.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/detector/PDF417Detector.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/detector/LinesSampler.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/PDF417Reader.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigUnsignedInABase.cc \
+		../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigUnsigned.cc \
+		../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigIntegerUtils.cc \
+		../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigIntegerAlgorithms.cc \
+		../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigInteger.cc \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/ByteMatrix.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/QREncoder.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/MaskUtil.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/MatrixUtil.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/QRCode.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/EncodeHint.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/ReedSolomonEncoder.cpp \
+		../QRCodeManagement_Raspi/main.cpp \
 		../QRCodeManagement_Raspi/mainwindow.cpp \
 		../QRCodeManagement_Raspi/1_Menu/menu.cpp \
 		../QRCodeManagement_Raspi/2_Manage/manage.cpp \
 		../QRCodeManagement_Raspi/3_Scan/scan.cpp \
 		../QRCodeManagement_Raspi/4_AddInfo/addinfo.cpp \
 		../QRCodeManagement_Raspi/SQLite/database.cpp qrc_qresource.cpp \
+		moc_ImageHandler.cpp \
+		moc_QZXing.cpp \
 		moc_mainwindow.cpp \
 		moc_menu.cpp \
 		moc_manage.cpp \
 		moc_scan.cpp \
 		moc_addinfo.cpp
-OBJECTS       = main.o \
+OBJECTS       = CameraImageWrapper.o \
+		QZXing.o \
+		ImageHandler.o \
+		ResultIO.o \
+		InvertedLuminanceSource.o \
+		ChecksumException.o \
+		ResultPointCallback.o \
+		ResultPoint.o \
+		Result.o \
+		Reader.o \
+		MultiFormatReader.o \
+		LuminanceSource.o \
+		FormatException.o \
+		Exception.o \
+		DecodeHints.o \
+		BinaryBitmap.o \
+		Binarizer.o \
+		BarcodeFormat.o \
+		AztecReader.o \
+		AztecDetectorResult.o \
+		StringUtils.o \
+		Str.o \
+		PerspectiveTransform.o \
+		IllegalArgumentException.o \
+		HybridBinarizer.o \
+		GridSampler.o \
+		GreyscaleRotatedLuminanceSource.o \
+		GreyscaleLuminanceSource.o \
+		GlobalHistogramBinarizer.o \
+		DetectorResult.o \
+		DecoderResult.o \
+		CharacterSetECI.o \
+		BitSource.o \
+		BitMatrix.o \
+		BitArray.o \
+		BitArrayIO.o \
+		WhiteRectangleDetector.o \
+		MonochromeRectangleDetector.o \
+		ReedSolomonException.o \
+		ReedSolomonDecoder.o \
+		GenericGFPoly.o \
+		GenericGF.o \
+		DataMatrixReader.o \
+		UPCEReader.o \
+		UPCEANReader.o \
+		UPCAReader.o \
+		OneDResultPoint.o \
+		OneDReader.o \
+		MultiFormatUPCEANReader.o \
+		MultiFormatOneDReader.o \
+		ITFReader.o \
+		EAN13Reader.o \
+		EAN8Reader.o \
+		Code128Reader.o \
+		Code39Reader.o \
+		CodaBarReader.o \
+		Code93Reader.o \
+		QRCodeReader.o \
+		MultipleBarcodeReader.o \
+		GenericMultipleBarcodeReader.o \
+		ByQuadrantReader.o \
+		QRCodeMultiReader.o \
+		MultiFinderPatternFinder.o \
+		MultiDetector.o \
+		AztecDecoder.o \
+		AztecDetector.o \
+		DataMatrixVersion.o \
+		DataMatrixDecoder.o \
+		DataMatrixBitMatrixParser.o \
+		DataMatrixDataBlock.o \
+		DataMatrixDecodedBitStreamParser.o \
+		DataMatrixCornerPoint.o \
+		DataMatrixDetector.o \
+		DataMatrixDetectorException.o \
+		QRBitMatrixParser.o \
+		QRDataBlock.o \
+		QRDataMask.o \
+		QRDecodedBitStreamParser.o \
+		QRDecoder.o \
+		QRMode.o \
+		QRAlignmentPattern.o \
+		QRAlignmentPatternFinder.o \
+		QRDetector.o \
+		QRFinderPattern.o \
+		QRFinderPatternFinder.o \
+		QRFinderPatternInfo.o \
+		QRVersion.o \
+		QRFormatInformation.o \
+		QRErrorCorrectionLevel.o \
+		ErrorCorrection.o \
+		ModulusGF.o \
+		ModulusPoly.o \
+		PDF417BitMatrixParser.o \
+		PDF417DecodedBitStreamParser.o \
+		PDF417Decoder.o \
+		PDF417Detector.o \
+		LinesSampler.o \
+		PDF417Reader.o \
+		BigUnsignedInABase.o \
+		BigUnsigned.o \
+		BigIntegerUtils.o \
+		BigIntegerAlgorithms.o \
+		BigInteger.o \
+		ByteMatrix.o \
+		QREncoder.o \
+		MaskUtil.o \
+		MatrixUtil.o \
+		QRCode.o \
+		EncodeHint.o \
+		ReedSolomonEncoder.o \
+		main.o \
 		mainwindow.o \
 		menu.o \
 		manage.o \
@@ -70,6 +292,8 @@ OBJECTS       = main.o \
 		addinfo.o \
 		database.o \
 		qrc_qresource.o \
+		moc_ImageHandler.o \
+		moc_QZXing.o \
 		moc_mainwindow.o \
 		moc_menu.o \
 		moc_manage.o \
@@ -244,19 +468,20 @@ DIST          = ../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/spec_pre
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/mac/toolchain.prf \
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/default_pre.prf \
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/mac/default_pre.prf \
+		../QRCodeManagement_Raspi/QZXing/QZXing.pri \
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/resolve_config.prf \
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/default_post.prf \
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/mac/default_post.prf \
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/mac/objective_c.prf \
-		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/qml_debug.prf \
-		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/mac/mac.prf \
-		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/warn_on.prf \
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/qt.prf \
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/resources.prf \
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/moc.prf \
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/unix/opengl.prf \
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/uic.prf \
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/unix/thread.prf \
+		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/qml_debug.prf \
+		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/mac/mac.prf \
+		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/warn_on.prf \
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/qmake_use.prf \
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/file_copies.prf \
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/mac/rez.prf \
@@ -265,13 +490,247 @@ DIST          = ../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/spec_pre
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/exceptions.prf \
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/yacc.prf \
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/lex.prf \
-		../QRCodeManagement_Raspi/QRCodeManagement_Raspi.pro ../QRCodeManagement_Raspi/mainwindow.h \
+		../QRCodeManagement_Raspi/QRCodeManagement_Raspi.pro ../QRCodeManagement_Raspi/QZXing/QZXing_global.h \
+		../QRCodeManagement_Raspi/QZXing/CameraImageWrapper.h \
+		../QRCodeManagement_Raspi/QZXing/ImageHandler.h \
+		../QRCodeManagement_Raspi/QZXing/QZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/IllegalStateException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/InvertedLuminanceSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ChecksumException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPointCallback.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Result.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Reader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/NotFoundException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/MultiFormatReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/LuminanceSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/FormatException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/DecodeHints.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BinaryBitmap.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Binarizer.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/aztec/AztecReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/aztec/AztecDetectorResult.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/aztec/decoder/Decoder.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/aztec/detector/Detector.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/StringUtils.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Str.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Point.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/PerspectiveTransform.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/HybridBinarizer.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/GridSampler.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/GreyscaleRotatedLuminanceSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/GreyscaleLuminanceSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/GlobalHistogramBinarizer.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/DetectorResult.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/DecoderResult.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/CharacterSetECI.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/detector/MathUtils.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/detector/JavaMath.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/detector/WhiteRectangleDetector.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/detector/MonochromeRectangleDetector.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/ReedSolomonException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/ReedSolomonDecoder.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/GenericGFPoly.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/GenericGF.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/Version.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/DataMatrixReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/decoder/Decoder.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/decoder/DecodedBitStreamParser.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/decoder/DataBlock.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/decoder/BitMatrixParser.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/detector/DetectorException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/detector/Detector.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/detector/CornerPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/UPCEReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/UPCEANReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/UPCAReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/OneDResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/OneDReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/MultiFormatUPCEANReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/MultiFormatOneDReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/ITFReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/EAN13Reader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/EAN8Reader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/Code128Reader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/Code39Reader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/CodaBarReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/Code93Reader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/Version.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/QRCodeReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/FormatInformation.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/ErrorCorrectionLevel.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/Mode.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/Decoder.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/DecodedBitStreamParser.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/DataMask.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/DataBlock.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/BitMatrixParser.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/FinderPatternInfo.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/FinderPatternFinder.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/FinderPattern.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/Detector.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/AlignmentPatternFinder.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/AlignmentPattern.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/MultipleBarcodeReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/GenericMultipleBarcodeReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/ByQuadrantReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/qrcode/QRCodeMultiReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/qrcode/detector/MultiFinderPatternFinder.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/qrcode/detector/MultiDetector.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/ec/ErrorCorrection.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/ec/ModulusGF.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/ec/ModulusPoly.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/BitMatrixParser.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/DecodedBitStreamParser.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/Decoder.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/detector/Detector.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/detector/LinesSampler.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/PDF417Reader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/bigint/NumberlikeArray.hh \
+		../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigUnsignedInABase.hh \
+		../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigUnsigned.hh \
+		../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigIntegerUtils.hh \
+		../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigIntegerLibrary.hh \
+		../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigIntegerAlgorithms.hh \
+		../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigInteger.hh \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/BlockPair.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/ByteMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/Encoder.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/MaskUtil.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/MatrixUtil.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/QRCode.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/WriterException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/EncodeHint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/UnsupportedEncodingException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/ReedSolomonEncoder.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/mainwindow.h \
 		../QRCodeManagement_Raspi/1_Menu/menu.h \
 		../QRCodeManagement_Raspi/2_Manage/manage.h \
 		../QRCodeManagement_Raspi/3_Scan/scan.h \
 		../QRCodeManagement_Raspi/4_AddInfo/addinfo.h \
 		../QRCodeManagement_Raspi/SQLite/database.h \
-		../QRCodeManagement_Raspi/QSS/qss.h ../QRCodeManagement_Raspi/main.cpp \
+		../QRCodeManagement_Raspi/QSS/qss.h ../QRCodeManagement_Raspi/QZXing/CameraImageWrapper.cpp \
+		../QRCodeManagement_Raspi/QZXing/QZXing.cpp \
+		../QRCodeManagement_Raspi/QZXing/ImageHandler.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultIO.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/InvertedLuminanceSource.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ChecksumException.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPointCallback.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Result.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Reader.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/MultiFormatReader.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/LuminanceSource.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/FormatException.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/DecodeHints.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BinaryBitmap.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Binarizer.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/aztec/AztecReader.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/aztec/AztecDetectorResult.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/StringUtils.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Str.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/PerspectiveTransform.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/HybridBinarizer.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/GridSampler.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/GreyscaleRotatedLuminanceSource.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/GreyscaleLuminanceSource.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/GlobalHistogramBinarizer.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/DetectorResult.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/DecoderResult.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/CharacterSetECI.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitSource.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArrayIO.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/detector/WhiteRectangleDetector.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/detector/MonochromeRectangleDetector.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/ReedSolomonException.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/ReedSolomonDecoder.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/GenericGFPoly.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/GenericGF.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/DataMatrixReader.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/UPCEReader.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/UPCEANReader.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/UPCAReader.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/OneDResultPoint.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/OneDReader.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/MultiFormatUPCEANReader.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/MultiFormatOneDReader.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/ITFReader.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/EAN13Reader.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/EAN8Reader.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/Code128Reader.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/Code39Reader.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/CodaBarReader.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/Code93Reader.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/QRCodeReader.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/MultipleBarcodeReader.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/GenericMultipleBarcodeReader.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/ByQuadrantReader.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/qrcode/QRCodeMultiReader.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/qrcode/detector/MultiFinderPatternFinder.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/qrcode/detector/MultiDetector.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/aztec/decoder/AztecDecoder.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/aztec/detector/AztecDetector.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/DataMatrixVersion.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/decoder/DataMatrixDecoder.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/decoder/DataMatrixBitMatrixParser.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/decoder/DataMatrixDataBlock.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/decoder/DataMatrixDecodedBitStreamParser.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/detector/DataMatrixCornerPoint.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/detector/DataMatrixDetector.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/detector/DataMatrixDetectorException.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/QRBitMatrixParser.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/QRDataBlock.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/QRDataMask.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/QRDecodedBitStreamParser.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/QRDecoder.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/QRMode.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/QRAlignmentPattern.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/QRAlignmentPatternFinder.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/QRDetector.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/QRFinderPattern.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/QRFinderPatternFinder.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/QRFinderPatternInfo.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/QRVersion.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/QRFormatInformation.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/QRErrorCorrectionLevel.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/ec/ErrorCorrection.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/ec/ModulusGF.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/ec/ModulusPoly.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/PDF417BitMatrixParser.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/PDF417DecodedBitStreamParser.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/PDF417Decoder.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/detector/PDF417Detector.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/detector/LinesSampler.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/PDF417Reader.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigUnsignedInABase.cc \
+		../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigUnsigned.cc \
+		../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigIntegerUtils.cc \
+		../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigIntegerAlgorithms.cc \
+		../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigInteger.cc \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/ByteMatrix.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/QREncoder.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/MaskUtil.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/MatrixUtil.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/QRCode.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/EncodeHint.cpp \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/ReedSolomonEncoder.cpp \
+		../QRCodeManagement_Raspi/main.cpp \
 		../QRCodeManagement_Raspi/mainwindow.cpp \
 		../QRCodeManagement_Raspi/1_Menu/menu.cpp \
 		../QRCodeManagement_Raspi/2_Manage/manage.cpp \
@@ -464,19 +923,20 @@ Makefile: ../QRCodeManagement_Raspi/QRCodeManagement_Raspi.pro ../../../Qt_OpenS
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/mac/toolchain.prf \
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/default_pre.prf \
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/mac/default_pre.prf \
+		../QRCodeManagement_Raspi/QZXing/QZXing.pri \
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/resolve_config.prf \
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/default_post.prf \
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/mac/default_post.prf \
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/mac/objective_c.prf \
-		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/qml_debug.prf \
-		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/mac/mac.prf \
-		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/warn_on.prf \
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/qt.prf \
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/resources.prf \
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/moc.prf \
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/unix/opengl.prf \
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/uic.prf \
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/unix/thread.prf \
+		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/qml_debug.prf \
+		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/mac/mac.prf \
+		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/warn_on.prf \
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/qmake_use.prf \
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/file_copies.prf \
 		../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/mac/rez.prf \
@@ -664,19 +1124,20 @@ Makefile: ../QRCodeManagement_Raspi/QRCodeManagement_Raspi.pro ../../../Qt_OpenS
 ../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/mac/toolchain.prf:
 ../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/default_pre.prf:
 ../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/mac/default_pre.prf:
+../QRCodeManagement_Raspi/QZXing/QZXing.pri:
 ../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/resolve_config.prf:
 ../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/default_post.prf:
 ../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/mac/default_post.prf:
 ../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/mac/objective_c.prf:
-../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/qml_debug.prf:
-../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/mac/mac.prf:
-../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/warn_on.prf:
 ../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/qt.prf:
 ../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/resources.prf:
 ../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/moc.prf:
 ../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/unix/opengl.prf:
 ../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/uic.prf:
 ../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/unix/thread.prf:
+../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/qml_debug.prf:
+../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/mac/mac.prf:
+../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/warn_on.prf:
 ../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/qmake_use.prf:
 ../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/file_copies.prf:
 ../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/mac/rez.prf:
@@ -725,13 +1186,14 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../QRCodeManagement_Raspi/qresource.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../QRCodeManagement_Raspi/mainwindow.h ../QRCodeManagement_Raspi/1_Menu/menu.h ../QRCodeManagement_Raspi/2_Manage/manage.h ../QRCodeManagement_Raspi/3_Scan/scan.h ../QRCodeManagement_Raspi/4_AddInfo/addinfo.h ../QRCodeManagement_Raspi/SQLite/database.h ../QRCodeManagement_Raspi/QSS/qss.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../QRCodeManagement_Raspi/main.cpp ../QRCodeManagement_Raspi/mainwindow.cpp ../QRCodeManagement_Raspi/1_Menu/menu.cpp ../QRCodeManagement_Raspi/2_Manage/manage.cpp ../QRCodeManagement_Raspi/3_Scan/scan.cpp ../QRCodeManagement_Raspi/4_AddInfo/addinfo.cpp ../QRCodeManagement_Raspi/SQLite/database.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../QRCodeManagement_Raspi/QZXing/QZXing_global.h ../QRCodeManagement_Raspi/QZXing/CameraImageWrapper.h ../QRCodeManagement_Raspi/QZXing/ImageHandler.h ../QRCodeManagement_Raspi/QZXing/QZXing.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/IllegalStateException.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/InvertedLuminanceSource.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/ChecksumException.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPointCallback.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/Result.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/Reader.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/NotFoundException.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/MultiFormatReader.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/LuminanceSource.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/FormatException.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/DecodeHints.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/BinaryBitmap.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/Binarizer.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/aztec/AztecReader.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/aztec/AztecDetectorResult.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/aztec/decoder/Decoder.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/aztec/detector/Detector.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/StringUtils.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Str.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Point.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/PerspectiveTransform.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/HybridBinarizer.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/GridSampler.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/GreyscaleRotatedLuminanceSource.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/GreyscaleLuminanceSource.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/GlobalHistogramBinarizer.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/DetectorResult.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/DecoderResult.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/CharacterSetECI.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitSource.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/detector/MathUtils.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/detector/JavaMath.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/detector/WhiteRectangleDetector.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/detector/MonochromeRectangleDetector.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/ReedSolomonException.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/ReedSolomonDecoder.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/GenericGFPoly.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/GenericGF.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/Version.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/DataMatrixReader.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/decoder/Decoder.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/decoder/DecodedBitStreamParser.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/decoder/DataBlock.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/decoder/BitMatrixParser.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/detector/DetectorException.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/detector/Detector.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/detector/CornerPoint.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/UPCEReader.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/UPCEANReader.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/UPCAReader.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/OneDResultPoint.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/OneDReader.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/MultiFormatUPCEANReader.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/MultiFormatOneDReader.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/ITFReader.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/EAN13Reader.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/EAN8Reader.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/Code128Reader.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/Code39Reader.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/CodaBarReader.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/Code93Reader.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/Version.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/QRCodeReader.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/FormatInformation.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/ErrorCorrectionLevel.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/Mode.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/Decoder.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/DecodedBitStreamParser.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/DataMask.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/DataBlock.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/BitMatrixParser.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/FinderPatternInfo.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/FinderPatternFinder.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/FinderPattern.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/Detector.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/AlignmentPatternFinder.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/AlignmentPattern.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/MultipleBarcodeReader.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/GenericMultipleBarcodeReader.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/ByQuadrantReader.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/qrcode/QRCodeMultiReader.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/qrcode/detector/MultiFinderPatternFinder.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/qrcode/detector/MultiDetector.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/ec/ErrorCorrection.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/ec/ModulusGF.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/ec/ModulusPoly.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/BitMatrixParser.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/DecodedBitStreamParser.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/Decoder.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/detector/Detector.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/detector/LinesSampler.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/PDF417Reader.h ../QRCodeManagement_Raspi/QZXing/zxing/bigint/NumberlikeArray.hh ../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigUnsignedInABase.hh ../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigUnsigned.hh ../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigIntegerUtils.hh ../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigIntegerLibrary.hh ../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigIntegerAlgorithms.hh ../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigInteger.hh ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/BlockPair.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/ByteMatrix.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/Encoder.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/MaskUtil.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/MatrixUtil.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/QRCode.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/WriterException.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/EncodeHint.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/UnsupportedEncodingException.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/ReedSolomonEncoder.h ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h ../QRCodeManagement_Raspi/mainwindow.h ../QRCodeManagement_Raspi/1_Menu/menu.h ../QRCodeManagement_Raspi/2_Manage/manage.h ../QRCodeManagement_Raspi/3_Scan/scan.h ../QRCodeManagement_Raspi/4_AddInfo/addinfo.h ../QRCodeManagement_Raspi/SQLite/database.h ../QRCodeManagement_Raspi/QSS/qss.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../QRCodeManagement_Raspi/QZXing/CameraImageWrapper.cpp ../QRCodeManagement_Raspi/QZXing/QZXing.cpp ../QRCodeManagement_Raspi/QZXing/ImageHandler.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultIO.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/InvertedLuminanceSource.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/ChecksumException.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPointCallback.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/Result.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/Reader.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/MultiFormatReader.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/LuminanceSource.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/FormatException.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/DecodeHints.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/BinaryBitmap.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/Binarizer.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/aztec/AztecReader.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/aztec/AztecDetectorResult.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/StringUtils.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Str.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/PerspectiveTransform.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/HybridBinarizer.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/GridSampler.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/GreyscaleRotatedLuminanceSource.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/GreyscaleLuminanceSource.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/GlobalHistogramBinarizer.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/DetectorResult.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/DecoderResult.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/CharacterSetECI.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitSource.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArrayIO.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/detector/WhiteRectangleDetector.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/detector/MonochromeRectangleDetector.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/ReedSolomonException.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/ReedSolomonDecoder.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/GenericGFPoly.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/GenericGF.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/DataMatrixReader.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/UPCEReader.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/UPCEANReader.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/UPCAReader.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/OneDResultPoint.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/OneDReader.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/MultiFormatUPCEANReader.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/MultiFormatOneDReader.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/ITFReader.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/EAN13Reader.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/EAN8Reader.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/Code128Reader.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/Code39Reader.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/CodaBarReader.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/Code93Reader.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/QRCodeReader.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/MultipleBarcodeReader.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/GenericMultipleBarcodeReader.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/ByQuadrantReader.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/qrcode/QRCodeMultiReader.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/qrcode/detector/MultiFinderPatternFinder.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/qrcode/detector/MultiDetector.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/aztec/decoder/AztecDecoder.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/aztec/detector/AztecDetector.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/DataMatrixVersion.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/decoder/DataMatrixDecoder.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/decoder/DataMatrixBitMatrixParser.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/decoder/DataMatrixDataBlock.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/decoder/DataMatrixDecodedBitStreamParser.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/detector/DataMatrixCornerPoint.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/detector/DataMatrixDetector.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/detector/DataMatrixDetectorException.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/QRBitMatrixParser.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/QRDataBlock.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/QRDataMask.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/QRDecodedBitStreamParser.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/QRDecoder.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/QRMode.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/QRAlignmentPattern.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/QRAlignmentPatternFinder.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/QRDetector.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/QRFinderPattern.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/QRFinderPatternFinder.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/QRFinderPatternInfo.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/QRVersion.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/QRFormatInformation.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/QRErrorCorrectionLevel.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/ec/ErrorCorrection.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/ec/ModulusGF.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/ec/ModulusPoly.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/PDF417BitMatrixParser.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/PDF417DecodedBitStreamParser.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/PDF417Decoder.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/detector/PDF417Detector.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/detector/LinesSampler.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/PDF417Reader.cpp ../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigUnsignedInABase.cc ../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigUnsigned.cc ../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigIntegerUtils.cc ../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigIntegerAlgorithms.cc ../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigInteger.cc ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/ByteMatrix.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/QREncoder.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/MaskUtil.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/MatrixUtil.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/QRCode.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/EncodeHint.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/ReedSolomonEncoder.cpp ../QRCodeManagement_Raspi/main.cpp ../QRCodeManagement_Raspi/mainwindow.cpp ../QRCodeManagement_Raspi/1_Menu/menu.cpp ../QRCodeManagement_Raspi/2_Manage/manage.cpp ../QRCodeManagement_Raspi/3_Scan/scan.cpp ../QRCodeManagement_Raspi/4_AddInfo/addinfo.cpp ../QRCodeManagement_Raspi/SQLite/database.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../QRCodeManagement_Raspi/mainwindow.ui ../QRCodeManagement_Raspi/1_Menu/menu.ui ../QRCodeManagement_Raspi/2_Manage/manage.ui ../QRCodeManagement_Raspi/3_Scan/scan.ui ../QRCodeManagement_Raspi/4_AddInfo/addinfo.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
 	-$(DEL_FILE) $(OBJECTS)
+	-$(DEL_FILE) -r pkgconfig libQRCodeManagement_Raspi.prl
 	-$(DEL_FILE) *~ core *.core
 
 
@@ -763,38 +1225,159 @@ compiler_moc_predefs_make_all: moc_predefs.h
 compiler_moc_predefs_clean:
 	-$(DEL_FILE) moc_predefs.h
 moc_predefs.h: ../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/data/dummy.cpp
-	/Library/Developer/CommandLineTools/usr/bin/clang++ -pipe -stdlib=libc++ -g -std=gnu++11 $(EXPORT_ARCH_ARGS) -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -mmacosx-version-min=10.11 -Wall -W -dM -E -o moc_predefs.h ../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/data/dummy.cpp
+	/Library/Developer/CommandLineTools/usr/bin/clang++ -pipe -stdlib=libc++ -g -std=gnu++11 $(EXPORT_ARCH_ARGS) -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -mmacosx-version-min=10.11 -dM -E -o moc_predefs.h ../../../Qt_OpenSource/5.11.0/clang_64/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp moc_menu.cpp moc_manage.cpp moc_scan.cpp moc_addinfo.cpp
+compiler_moc_header_make_all: moc_ImageHandler.cpp moc_QZXing.cpp moc_mainwindow.cpp moc_menu.cpp moc_manage.cpp moc_scan.cpp moc_addinfo.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp moc_menu.cpp moc_manage.cpp moc_scan.cpp moc_addinfo.cpp
+	-$(DEL_FILE) moc_ImageHandler.cpp moc_QZXing.cpp moc_mainwindow.cpp moc_menu.cpp moc_manage.cpp moc_scan.cpp moc_addinfo.cpp
+moc_ImageHandler.cpp: ../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QObject \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qobject.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers/QImage \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers/qimage.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QSet \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qset.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QReadWriteLock \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qreadwritelock.h \
+		../QRCodeManagement_Raspi/QZXing/ImageHandler.h \
+		moc_predefs.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/bin/moc
+	/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/mkspecs/macx-clang -I/Users/Isabella/Qt_Softwares/QRCodeManager_Raspi/QRCodeManagement_Raspi -I/Users/Isabella/Qt_Softwares/QRCodeManager_Raspi/QRCodeManagement_Raspi/QZXing -I/Users/Isabella/Qt_Softwares/QRCodeManager_Raspi/QRCodeManagement_Raspi/QZXing/zxing -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtMultimediaWidgets.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtMultimedia.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtNetwork.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -F/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib ../QRCodeManagement_Raspi/QZXing/ImageHandler.h -o moc_ImageHandler.cpp
+
+moc_QZXing.cpp: ../QRCodeManagement_Raspi/QZXing/QZXing_global.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QObject \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qobject.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers/QImage \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers/qimage.h \
+		../QRCodeManagement_Raspi/QZXing/QZXing.h \
+		moc_predefs.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/bin/moc
+	/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/mkspecs/macx-clang -I/Users/Isabella/Qt_Softwares/QRCodeManager_Raspi/QRCodeManagement_Raspi -I/Users/Isabella/Qt_Softwares/QRCodeManager_Raspi/QRCodeManagement_Raspi/QZXing -I/Users/Isabella/Qt_Softwares/QRCodeManager_Raspi/QRCodeManagement_Raspi/QZXing/zxing -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtMultimediaWidgets.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtMultimedia.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtNetwork.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -F/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib ../QRCodeManagement_Raspi/QZXing/QZXing.h -o moc_QZXing.cpp
+
 moc_mainwindow.cpp: ../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
 		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
 		../QRCodeManagement_Raspi/mainwindow.h \
 		moc_predefs.h \
 		../../../Qt_OpenSource/5.11.0/clang_64/bin/moc
-	/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/mkspecs/macx-clang -I/Users/Isabella/Qt_Softwares/QRCodeManager_Raspi/QRCodeManagement_Raspi -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtMultimediaWidgets.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtMultimedia.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtNetwork.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -F/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib ../QRCodeManagement_Raspi/mainwindow.h -o moc_mainwindow.cpp
+	/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/mkspecs/macx-clang -I/Users/Isabella/Qt_Softwares/QRCodeManager_Raspi/QRCodeManagement_Raspi -I/Users/Isabella/Qt_Softwares/QRCodeManager_Raspi/QRCodeManagement_Raspi/QZXing -I/Users/Isabella/Qt_Softwares/QRCodeManager_Raspi/QRCodeManagement_Raspi/QZXing/zxing -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtMultimediaWidgets.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtMultimedia.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtNetwork.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -F/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib ../QRCodeManagement_Raspi/mainwindow.h -o moc_mainwindow.cpp
 
-moc_menu.cpp: ../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/QWidget \
+moc_menu.cpp: ../QRCodeManagement_Raspi/2_Manage/manage.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/QTableView \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/qtableview.h \
+		../QRCodeManagement_Raspi/SQLite/database.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QDebug \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qdebug.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QString \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QDateTime \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qdatetime.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/QApplication \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/qapplication.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSql \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qtsqlglobal.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSqlDatabase \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qsqldatabase.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSqlError \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qsqlerror.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSqlQuery \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSqlQueryModel \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qsqlquerymodel.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QVariantList \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qvariant.h \
+		../QRCodeManagement_Raspi/3_Scan/scan.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/QDesktopWidget \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/qdesktopwidget.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtMultimedia.framework/Headers/QCamera \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtMultimedia.framework/Headers/qcamera.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtMultimediaWidgets.framework/Headers/QCameraViewfinder \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtMultimediaWidgets.framework/Headers/qcameraviewfinder.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtMultimedia.framework/Headers/QCameraImageCapture \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtMultimedia.framework/Headers/qcameraimagecapture.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QFile \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qfile.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers/QCloseEvent \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers/qevent.h \
+		../QRCodeManagement_Raspi/4_AddInfo/addinfo.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QTimer \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qtimer.h \
 		../QRCodeManagement_Raspi/1_Menu/menu.h \
 		moc_predefs.h \
 		../../../Qt_OpenSource/5.11.0/clang_64/bin/moc
-	/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/mkspecs/macx-clang -I/Users/Isabella/Qt_Softwares/QRCodeManager_Raspi/QRCodeManagement_Raspi -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtMultimediaWidgets.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtMultimedia.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtNetwork.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -F/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib ../QRCodeManagement_Raspi/1_Menu/menu.h -o moc_menu.cpp
+	/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/mkspecs/macx-clang -I/Users/Isabella/Qt_Softwares/QRCodeManager_Raspi/QRCodeManagement_Raspi -I/Users/Isabella/Qt_Softwares/QRCodeManager_Raspi/QRCodeManagement_Raspi/QZXing -I/Users/Isabella/Qt_Softwares/QRCodeManager_Raspi/QRCodeManagement_Raspi/QZXing/zxing -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtMultimediaWidgets.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtMultimedia.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtNetwork.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -F/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib ../QRCodeManagement_Raspi/1_Menu/menu.h -o moc_menu.cpp
 
 moc_manage.cpp: ../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/QTableView \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/qtableview.h \
+		../QRCodeManagement_Raspi/SQLite/database.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QDebug \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qdebug.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QString \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QDateTime \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qdatetime.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/QApplication \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/qapplication.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSql \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qtsqlglobal.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSqlDatabase \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qsqldatabase.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSqlError \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qsqlerror.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSqlQuery \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSqlQueryModel \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qsqlquerymodel.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QVariantList \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qvariant.h \
 		../QRCodeManagement_Raspi/2_Manage/manage.h \
 		moc_predefs.h \
 		../../../Qt_OpenSource/5.11.0/clang_64/bin/moc
-	/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/mkspecs/macx-clang -I/Users/Isabella/Qt_Softwares/QRCodeManager_Raspi/QRCodeManagement_Raspi -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtMultimediaWidgets.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtMultimedia.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtNetwork.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -F/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib ../QRCodeManagement_Raspi/2_Manage/manage.h -o moc_manage.cpp
+	/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/mkspecs/macx-clang -I/Users/Isabella/Qt_Softwares/QRCodeManager_Raspi/QRCodeManagement_Raspi -I/Users/Isabella/Qt_Softwares/QRCodeManager_Raspi/QRCodeManagement_Raspi/QZXing -I/Users/Isabella/Qt_Softwares/QRCodeManager_Raspi/QRCodeManagement_Raspi/QZXing/zxing -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtMultimediaWidgets.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtMultimedia.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtNetwork.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -F/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib ../QRCodeManagement_Raspi/2_Manage/manage.h -o moc_manage.cpp
 
 moc_scan.cpp: ../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/QTableView \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/qtableview.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/QDesktopWidget \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/qdesktopwidget.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtMultimedia.framework/Headers/QCamera \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtMultimedia.framework/Headers/qcamera.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtMultimediaWidgets.framework/Headers/QCameraViewfinder \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtMultimediaWidgets.framework/Headers/qcameraviewfinder.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtMultimedia.framework/Headers/QCameraImageCapture \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtMultimedia.framework/Headers/qcameraimagecapture.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QString \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QFile \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qfile.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers/QCloseEvent \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers/qevent.h \
+		../QRCodeManagement_Raspi/SQLite/database.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QDebug \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qdebug.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QDateTime \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qdatetime.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/QApplication \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/qapplication.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSql \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qtsqlglobal.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSqlDatabase \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qsqldatabase.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSqlError \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qsqlerror.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSqlQuery \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSqlQueryModel \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qsqlquerymodel.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QVariantList \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qvariant.h \
 		../QRCodeManagement_Raspi/3_Scan/scan.h \
 		moc_predefs.h \
 		../../../Qt_OpenSource/5.11.0/clang_64/bin/moc
-	/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/mkspecs/macx-clang -I/Users/Isabella/Qt_Softwares/QRCodeManager_Raspi/QRCodeManagement_Raspi -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtMultimediaWidgets.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtMultimedia.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtNetwork.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -F/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib ../QRCodeManagement_Raspi/3_Scan/scan.h -o moc_scan.cpp
+	/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/mkspecs/macx-clang -I/Users/Isabella/Qt_Softwares/QRCodeManager_Raspi/QRCodeManagement_Raspi -I/Users/Isabella/Qt_Softwares/QRCodeManager_Raspi/QRCodeManagement_Raspi/QZXing -I/Users/Isabella/Qt_Softwares/QRCodeManager_Raspi/QRCodeManagement_Raspi/QZXing/zxing -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtMultimediaWidgets.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtMultimedia.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtNetwork.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -F/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib ../QRCodeManagement_Raspi/3_Scan/scan.h -o moc_scan.cpp
 
 moc_addinfo.cpp: ../QRCodeManagement_Raspi/SQLite/database.h \
 		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QDebug \
@@ -813,14 +1396,18 @@ moc_addinfo.cpp: ../QRCodeManagement_Raspi/SQLite/database.h \
 		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qsqlerror.h \
 		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSqlQuery \
 		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSqlQueryModel \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qsqlquerymodel.h \
 		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QVariantList \
 		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qvariant.h \
 		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QTimer \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qtimer.h \
 		../QRCodeManagement_Raspi/4_AddInfo/addinfo.h \
 		moc_predefs.h \
 		../../../Qt_OpenSource/5.11.0/clang_64/bin/moc
-	/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/mkspecs/macx-clang -I/Users/Isabella/Qt_Softwares/QRCodeManager_Raspi/QRCodeManagement_Raspi -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtMultimediaWidgets.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtMultimedia.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtNetwork.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -F/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib ../QRCodeManagement_Raspi/4_AddInfo/addinfo.h -o moc_addinfo.cpp
+	/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/mkspecs/macx-clang -I/Users/Isabella/Qt_Softwares/QRCodeManager_Raspi/QRCodeManagement_Raspi -I/Users/Isabella/Qt_Softwares/QRCodeManager_Raspi/QRCodeManagement_Raspi/QZXing -I/Users/Isabella/Qt_Softwares/QRCodeManager_Raspi/QRCodeManagement_Raspi/QZXing/zxing -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtMultimediaWidgets.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtMultimedia.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtNetwork.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers -I/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/9.0.0/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -F/Users/Isabella/Qt_OpenSource/5.11.0/clang_64/lib ../QRCodeManagement_Raspi/4_AddInfo/addinfo.h -o moc_addinfo.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -861,6 +1448,1744 @@ compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_heade
 
 ####### Compile
 
+CameraImageWrapper.o: ../QRCodeManagement_Raspi/QZXing/CameraImageWrapper.cpp ../QRCodeManagement_Raspi/QZXing/CameraImageWrapper.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers/QImage \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers/qimage.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QString \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/GreyscaleLuminanceSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/LuminanceSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers/QColor \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers/qcolor.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o CameraImageWrapper.o ../QRCodeManagement_Raspi/QZXing/CameraImageWrapper.cpp
+
+QZXing.o: ../QRCodeManagement_Raspi/QZXing/QZXing.cpp ../QRCodeManagement_Raspi/QZXing/QZXing.h \
+		../QRCodeManagement_Raspi/QZXing/QZXing_global.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QObject \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qobject.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers/QImage \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers/qimage.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/GlobalHistogramBinarizer.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Binarizer.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/LuminanceSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BinaryBitmap.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/MultiFormatReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Reader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Result.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Str.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/DecodeHints.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPointCallback.h \
+		../QRCodeManagement_Raspi/QZXing/CameraImageWrapper.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QString \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/GreyscaleLuminanceSource.h \
+		../QRCodeManagement_Raspi/QZXing/ImageHandler.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QSet \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qset.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QReadWriteLock \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qreadwritelock.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QTime \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qdatetime.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QUrl \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qurl.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QFileInfo \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qfileinfo.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/Encoder.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/CharacterSetECI.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/ErrorCorrectionLevel.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/QRCode.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/Mode.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/Version.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/ByteMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/EncodeHint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/detector/WhiteRectangleDetector.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers/QColor \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers/qcolor.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QDebug \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qdebug.h \
+		../QRCodeManagement_Raspi/QZXing/QZXingFilter.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtMultimedia.framework/Headers/QAbstractVideoFilter \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtMultimedia.framework/Headers/qabstractvideofilter.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QFuture \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qfuture.h \
+		../QRCodeManagement_Raspi/QZXing/QZXingImageProvider.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QZXing.o ../QRCodeManagement_Raspi/QZXing/QZXing.cpp
+
+ImageHandler.o: ../QRCodeManagement_Raspi/QZXing/ImageHandler.cpp ../QRCodeManagement_Raspi/QZXing/ImageHandler.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QObject \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qobject.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers/QImage \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers/qimage.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QSet \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qset.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QReadWriteLock \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qreadwritelock.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers/QPainter \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers/qpainter.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QDebug \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qdebug.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QThread \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qthread.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QTime \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qdatetime.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/QGraphicsObject \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/qgraphicsitem.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/QStyleOptionGraphicsItem \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/qstyleoption.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ImageHandler.o ../QRCodeManagement_Raspi/QZXing/ImageHandler.cpp
+
+ResultIO.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultIO.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/Result.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Str.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ResultIO.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultIO.cpp
+
+InvertedLuminanceSource.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/InvertedLuminanceSource.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/InvertedLuminanceSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/LuminanceSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o InvertedLuminanceSource.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/InvertedLuminanceSource.cpp
+
+ChecksumException.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/ChecksumException.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/ChecksumException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ChecksumException.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/ChecksumException.cpp
+
+ResultPointCallback.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPointCallback.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPointCallback.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ResultPointCallback.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPointCallback.cpp
+
+ResultPoint.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/detector/MathUtils.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ResultPoint.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.cpp
+
+Result.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/Result.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/Result.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Str.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Result.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/Result.cpp
+
+Reader.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/Reader.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/Reader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BinaryBitmap.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Binarizer.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/LuminanceSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Result.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Str.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/DecodeHints.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPointCallback.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Reader.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/Reader.cpp
+
+MultiFormatReader.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/MultiFormatReader.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/MultiFormatReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Reader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BinaryBitmap.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Binarizer.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/LuminanceSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Result.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Str.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/DecodeHints.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPointCallback.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/QRCodeReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/Decoder.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/ReedSolomonDecoder.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/GenericGFPoly.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/GenericGF.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/DecoderResult.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/DataMatrixReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/decoder/Decoder.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/aztec/AztecReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/aztec/decoder/Decoder.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/aztec/AztecDetectorResult.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/DetectorResult.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/PDF417Reader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/Decoder.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/ec/ErrorCorrection.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/ec/ModulusGF.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/ec/ModulusPoly.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/ReedSolomonException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/MultiFormatUPCEANReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/OneDReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/MultiFormatOneDReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MultiFormatReader.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/MultiFormatReader.cpp
+
+LuminanceSource.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/LuminanceSource.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/LuminanceSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/InvertedLuminanceSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o LuminanceSource.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/LuminanceSource.cpp
+
+FormatException.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/FormatException.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/FormatException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o FormatException.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/FormatException.cpp
+
+Exception.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Exception.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.cpp
+
+DecodeHints.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/DecodeHints.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/DecodeHints.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPointCallback.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qglobal.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o DecodeHints.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/DecodeHints.cpp
+
+BinaryBitmap.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/BinaryBitmap.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/BinaryBitmap.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Binarizer.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/LuminanceSource.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o BinaryBitmap.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/BinaryBitmap.cpp
+
+Binarizer.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/Binarizer.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/Binarizer.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/LuminanceSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Binarizer.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/Binarizer.cpp
+
+BarcodeFormat.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o BarcodeFormat.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.cpp
+
+AztecReader.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/aztec/AztecReader.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/aztec/AztecReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Reader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BinaryBitmap.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Binarizer.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/LuminanceSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Result.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Str.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/DecodeHints.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPointCallback.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/aztec/decoder/Decoder.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/aztec/AztecDetectorResult.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/DetectorResult.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/aztec/detector/Detector.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/DecoderResult.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o AztecReader.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/aztec/AztecReader.cpp
+
+AztecDetectorResult.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/aztec/AztecDetectorResult.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/aztec/AztecDetectorResult.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/DetectorResult.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o AztecDetectorResult.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/aztec/AztecDetectorResult.cpp
+
+StringUtils.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/StringUtils.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/StringUtils.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/DecodeHints.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPointCallback.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o StringUtils.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/StringUtils.cpp
+
+Str.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Str.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Str.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Str.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Str.cpp
+
+PerspectiveTransform.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/PerspectiveTransform.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/PerspectiveTransform.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o PerspectiveTransform.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/PerspectiveTransform.cpp
+
+IllegalArgumentException.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o IllegalArgumentException.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.cpp
+
+HybridBinarizer.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/HybridBinarizer.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/HybridBinarizer.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Binarizer.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/LuminanceSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/GlobalHistogramBinarizer.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o HybridBinarizer.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/HybridBinarizer.cpp
+
+GridSampler.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/GridSampler.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/GridSampler.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/PerspectiveTransform.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o GridSampler.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/GridSampler.cpp
+
+GreyscaleRotatedLuminanceSource.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/GreyscaleRotatedLuminanceSource.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/GreyscaleRotatedLuminanceSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/LuminanceSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o GreyscaleRotatedLuminanceSource.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/GreyscaleRotatedLuminanceSource.cpp
+
+GreyscaleLuminanceSource.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/GreyscaleLuminanceSource.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/GreyscaleLuminanceSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/LuminanceSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/GreyscaleRotatedLuminanceSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o GreyscaleLuminanceSource.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/GreyscaleLuminanceSource.cpp
+
+GlobalHistogramBinarizer.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/GlobalHistogramBinarizer.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/GlobalHistogramBinarizer.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Binarizer.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/LuminanceSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/NotFoundException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o GlobalHistogramBinarizer.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/GlobalHistogramBinarizer.cpp
+
+DetectorResult.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/DetectorResult.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/DetectorResult.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o DetectorResult.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/DetectorResult.cpp
+
+DecoderResult.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/DecoderResult.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/DecoderResult.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Str.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o DecoderResult.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/DecoderResult.cpp
+
+CharacterSetECI.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/CharacterSetECI.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/CharacterSetECI.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/DecodeHints.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPointCallback.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/FormatException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o CharacterSetECI.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/CharacterSetECI.cpp
+
+BitSource.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitSource.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o BitSource.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitSource.cpp
+
+BitMatrix.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o BitMatrix.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.cpp
+
+BitArray.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o BitArray.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.cpp
+
+BitArrayIO.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArrayIO.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o BitArrayIO.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArrayIO.cpp
+
+WhiteRectangleDetector.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/detector/WhiteRectangleDetector.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/NotFoundException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/detector/WhiteRectangleDetector.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/detector/MathUtils.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o WhiteRectangleDetector.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/detector/WhiteRectangleDetector.cpp
+
+MonochromeRectangleDetector.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/detector/MonochromeRectangleDetector.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/NotFoundException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/detector/MonochromeRectangleDetector.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MonochromeRectangleDetector.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/detector/MonochromeRectangleDetector.cpp
+
+ReedSolomonException.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/ReedSolomonException.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/ReedSolomonException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ReedSolomonException.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/ReedSolomonException.cpp
+
+ReedSolomonDecoder.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/ReedSolomonDecoder.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/ReedSolomonDecoder.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/GenericGFPoly.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/GenericGF.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/ReedSolomonException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/IllegalStateException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ReedSolomonDecoder.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/ReedSolomonDecoder.cpp
+
+GenericGFPoly.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/GenericGFPoly.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/GenericGFPoly.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/GenericGF.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o GenericGFPoly.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/GenericGFPoly.cpp
+
+GenericGF.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/GenericGF.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/GenericGF.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/GenericGFPoly.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o GenericGF.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/GenericGF.cpp
+
+DataMatrixReader.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/DataMatrixReader.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/DataMatrixReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Reader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BinaryBitmap.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Binarizer.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/LuminanceSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Result.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Str.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/DecodeHints.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPointCallback.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/decoder/Decoder.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/ReedSolomonDecoder.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/GenericGFPoly.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/GenericGF.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/DecoderResult.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/detector/Detector.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/DetectorResult.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/PerspectiveTransform.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/detector/WhiteRectangleDetector.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o DataMatrixReader.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/DataMatrixReader.cpp
+
+UPCEReader.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/UPCEReader.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/UPCEReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/UPCEANReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/OneDReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Reader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BinaryBitmap.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Binarizer.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/LuminanceSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Result.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Str.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/DecodeHints.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPointCallback.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o UPCEReader.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/UPCEReader.cpp
+
+UPCEANReader.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/UPCEANReader.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/UPCEANReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/OneDReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Reader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BinaryBitmap.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Binarizer.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/LuminanceSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Result.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Str.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/DecodeHints.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPointCallback.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/OneDResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/NotFoundException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/FormatException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ChecksumException.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o UPCEANReader.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/UPCEANReader.cpp
+
+UPCAReader.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/UPCAReader.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/UPCAReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/EAN13Reader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/UPCEANReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/OneDReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Reader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BinaryBitmap.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Binarizer.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/LuminanceSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Result.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Str.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/DecodeHints.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPointCallback.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o UPCAReader.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/UPCAReader.cpp
+
+OneDResultPoint.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/OneDResultPoint.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/OneDResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o OneDResultPoint.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/OneDResultPoint.cpp
+
+OneDReader.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/OneDReader.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/OneDReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Reader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BinaryBitmap.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Binarizer.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/LuminanceSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Result.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Str.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/DecodeHints.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPointCallback.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/OneDResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/NotFoundException.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o OneDReader.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/OneDReader.cpp
+
+MultiFormatUPCEANReader.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/MultiFormatUPCEANReader.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/MultiFormatUPCEANReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/OneDReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Reader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BinaryBitmap.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Binarizer.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/LuminanceSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Result.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Str.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/DecodeHints.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPointCallback.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/EAN13Reader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/UPCEANReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/EAN8Reader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/UPCEReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/UPCAReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/OneDResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/NotFoundException.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MultiFormatUPCEANReader.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/MultiFormatUPCEANReader.cpp
+
+MultiFormatOneDReader.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/MultiFormatOneDReader.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/MultiFormatOneDReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/OneDReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Reader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BinaryBitmap.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Binarizer.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/LuminanceSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Result.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Str.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/DecodeHints.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPointCallback.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/MultiFormatUPCEANReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/Code39Reader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/Code128Reader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/Code93Reader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/CodaBarReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/ITFReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/NotFoundException.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MultiFormatOneDReader.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/MultiFormatOneDReader.cpp
+
+ITFReader.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/ITFReader.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/ITFReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/OneDReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Reader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BinaryBitmap.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Binarizer.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/LuminanceSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Result.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Str.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/DecodeHints.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPointCallback.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/OneDResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/FormatException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/NotFoundException.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ITFReader.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/ITFReader.cpp
+
+EAN13Reader.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/EAN13Reader.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/EAN13Reader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/UPCEANReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/OneDReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Reader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BinaryBitmap.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Binarizer.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/LuminanceSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Result.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Str.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/DecodeHints.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPointCallback.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/NotFoundException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o EAN13Reader.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/EAN13Reader.cpp
+
+EAN8Reader.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/EAN8Reader.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/EAN8Reader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/UPCEANReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/OneDReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Reader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BinaryBitmap.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Binarizer.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/LuminanceSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Result.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Str.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/DecodeHints.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPointCallback.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o EAN8Reader.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/EAN8Reader.cpp
+
+Code128Reader.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/Code128Reader.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/Code128Reader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/OneDReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Reader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BinaryBitmap.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Binarizer.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/LuminanceSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Result.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Str.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/DecodeHints.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPointCallback.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/OneDResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/NotFoundException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/FormatException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ChecksumException.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Code128Reader.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/Code128Reader.cpp
+
+Code39Reader.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/Code39Reader.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/Code39Reader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/OneDReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Reader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BinaryBitmap.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Binarizer.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/LuminanceSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Result.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Str.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/DecodeHints.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPointCallback.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/OneDResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/NotFoundException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ChecksumException.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Code39Reader.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/Code39Reader.cpp
+
+CodaBarReader.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/CodaBarReader.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/CodaBarReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/OneDReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Reader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BinaryBitmap.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Binarizer.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/LuminanceSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Result.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Str.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/DecodeHints.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPointCallback.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/OneDResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/NotFoundException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/FormatException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ChecksumException.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o CodaBarReader.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/CodaBarReader.cpp
+
+Code93Reader.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/Code93Reader.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/Code93Reader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/OneDReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Reader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BinaryBitmap.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Binarizer.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/LuminanceSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Result.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Str.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/DecodeHints.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPointCallback.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/OneDResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/FormatException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/NotFoundException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ChecksumException.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Code93Reader.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/oned/Code93Reader.cpp
+
+QRCodeReader.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/QRCodeReader.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/QRCodeReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Reader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BinaryBitmap.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Binarizer.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/LuminanceSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Result.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Str.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/DecodeHints.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPointCallback.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/Decoder.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/ReedSolomonDecoder.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/GenericGFPoly.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/GenericGF.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/DecoderResult.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/Detector.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/DetectorResult.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/AlignmentPattern.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/PerspectiveTransform.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/FinderPatternInfo.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/FinderPattern.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QRCodeReader.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/QRCodeReader.cpp
+
+MultipleBarcodeReader.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/MultipleBarcodeReader.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/MultipleBarcodeReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Result.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Str.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BinaryBitmap.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Binarizer.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/LuminanceSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/DecodeHints.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPointCallback.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MultipleBarcodeReader.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/MultipleBarcodeReader.cpp
+
+GenericMultipleBarcodeReader.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/GenericMultipleBarcodeReader.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/GenericMultipleBarcodeReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/MultipleBarcodeReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Result.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Str.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BinaryBitmap.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Binarizer.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/LuminanceSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/DecodeHints.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPointCallback.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Reader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o GenericMultipleBarcodeReader.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/GenericMultipleBarcodeReader.cpp
+
+ByQuadrantReader.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/ByQuadrantReader.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/ByQuadrantReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Reader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BinaryBitmap.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Binarizer.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/LuminanceSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Result.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Str.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/DecodeHints.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPointCallback.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ByQuadrantReader.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/ByQuadrantReader.cpp
+
+QRCodeMultiReader.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/qrcode/QRCodeMultiReader.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/qrcode/QRCodeMultiReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/MultipleBarcodeReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Result.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Str.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BinaryBitmap.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Binarizer.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/LuminanceSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/DecodeHints.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPointCallback.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/QRCodeReader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Reader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/Decoder.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/ReedSolomonDecoder.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/GenericGFPoly.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/GenericGF.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/DecoderResult.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/qrcode/detector/MultiDetector.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/Detector.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/DetectorResult.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/AlignmentPattern.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/PerspectiveTransform.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/FinderPatternInfo.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/FinderPattern.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QRCodeMultiReader.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/qrcode/QRCodeMultiReader.cpp
+
+MultiFinderPatternFinder.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/qrcode/detector/MultiFinderPatternFinder.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/qrcode/detector/MultiFinderPatternFinder.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/FinderPattern.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/FinderPatternFinder.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/FinderPatternInfo.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPointCallback.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/DecodeHints.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MultiFinderPatternFinder.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/qrcode/detector/MultiFinderPatternFinder.cpp
+
+MultiDetector.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/qrcode/detector/MultiDetector.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/qrcode/detector/MultiDetector.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/Detector.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/DetectorResult.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/AlignmentPattern.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/PerspectiveTransform.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPointCallback.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/FinderPatternInfo.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/FinderPattern.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/DecodeHints.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/qrcode/detector/MultiFinderPatternFinder.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/FinderPatternFinder.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MultiDetector.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/multi/qrcode/detector/MultiDetector.cpp
+
+AztecDecoder.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/aztec/decoder/AztecDecoder.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/aztec/decoder/Decoder.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Str.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/aztec/AztecDetectorResult.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/DetectorResult.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/FormatException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/ReedSolomonDecoder.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/GenericGFPoly.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/GenericGF.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/ReedSolomonException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/DecoderResult.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qglobal.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o AztecDecoder.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/aztec/decoder/AztecDecoder.cpp
+
+AztecDetector.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/aztec/detector/AztecDetector.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/aztec/detector/Detector.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/DecodeHints.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPointCallback.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/aztec/AztecDetectorResult.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/DetectorResult.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/GridSampler.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/PerspectiveTransform.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/detector/WhiteRectangleDetector.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/ReedSolomonDecoder.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/GenericGFPoly.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/GenericGF.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/ReedSolomonException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/detector/MathUtils.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/NotFoundException.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o AztecDetector.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/aztec/detector/AztecDetector.cpp
+
+DataMatrixVersion.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/DataMatrixVersion.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/Version.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o DataMatrixVersion.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/DataMatrixVersion.cpp
+
+DataMatrixDecoder.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/decoder/DataMatrixDecoder.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/decoder/Decoder.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/ReedSolomonDecoder.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/GenericGFPoly.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/GenericGF.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/DecoderResult.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Str.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/decoder/BitMatrixParser.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/Version.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/decoder/DataBlock.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/decoder/DecodedBitStreamParser.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ChecksumException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/ReedSolomonException.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o DataMatrixDecoder.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/decoder/DataMatrixDecoder.cpp
+
+DataMatrixBitMatrixParser.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/decoder/DataMatrixBitMatrixParser.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/decoder/BitMatrixParser.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/Version.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o DataMatrixBitMatrixParser.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/decoder/DataMatrixBitMatrixParser.cpp
+
+DataMatrixDataBlock.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/decoder/DataMatrixDataBlock.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/decoder/DataBlock.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/Version.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o DataMatrixDataBlock.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/decoder/DataMatrixDataBlock.cpp
+
+DataMatrixDecodedBitStreamParser.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/decoder/DataMatrixDecodedBitStreamParser.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/FormatException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/decoder/DecodedBitStreamParser.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/DecoderResult.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Str.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o DataMatrixDecodedBitStreamParser.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/decoder/DataMatrixDecodedBitStreamParser.cpp
+
+DataMatrixCornerPoint.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/detector/DataMatrixCornerPoint.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/detector/CornerPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o DataMatrixCornerPoint.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/detector/DataMatrixCornerPoint.cpp
+
+DataMatrixDetector.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/detector/DataMatrixDetector.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/GridSampler.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/PerspectiveTransform.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/detector/Detector.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/DetectorResult.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/detector/WhiteRectangleDetector.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/detector/MathUtils.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/NotFoundException.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o DataMatrixDetector.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/detector/DataMatrixDetector.cpp
+
+DataMatrixDetectorException.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/detector/DataMatrixDetectorException.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/detector/DetectorException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o DataMatrixDetectorException.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/datamatrix/detector/DataMatrixDetectorException.cpp
+
+QRBitMatrixParser.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/QRBitMatrixParser.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/BitMatrixParser.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/Version.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/ErrorCorrectionLevel.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/FormatInformation.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/DataMask.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QRBitMatrixParser.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/QRBitMatrixParser.cpp
+
+QRDataBlock.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/QRDataBlock.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/DataBlock.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/Version.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/ErrorCorrectionLevel.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QRDataBlock.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/QRDataBlock.cpp
+
+QRDataMask.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/QRDataMask.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/DataMask.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QRDataMask.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/QRDataMask.cpp
+
+QRDecodedBitStreamParser.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/QRDecodedBitStreamParser.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/DecodedBitStreamParser.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/Mode.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/Version.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/ErrorCorrectionLevel.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/DecoderResult.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Str.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/CharacterSetECI.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/DecodeHints.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPointCallback.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/FormatException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/StringUtils.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qglobal.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QRDecodedBitStreamParser.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/QRDecodedBitStreamParser.cpp
+
+QRDecoder.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/QRDecoder.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/Decoder.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/ReedSolomonDecoder.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/GenericGFPoly.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/GenericGF.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/DecoderResult.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Str.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/BitMatrixParser.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/Version.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/ErrorCorrectionLevel.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/FormatInformation.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/DataBlock.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/DecodedBitStreamParser.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/Mode.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/CharacterSetECI.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/DecodeHints.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPointCallback.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ChecksumException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/ReedSolomonException.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QRDecoder.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/QRDecoder.cpp
+
+QRMode.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/QRMode.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/Mode.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/Version.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/ErrorCorrectionLevel.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QRMode.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/QRMode.cpp
+
+QRAlignmentPattern.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/QRAlignmentPattern.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/AlignmentPattern.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QRAlignmentPattern.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/QRAlignmentPattern.cpp
+
+QRAlignmentPatternFinder.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/QRAlignmentPatternFinder.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/AlignmentPatternFinder.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/AlignmentPattern.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPointCallback.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QRAlignmentPatternFinder.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/QRAlignmentPatternFinder.cpp
+
+QRDetector.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/QRDetector.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/Detector.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/DetectorResult.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/AlignmentPattern.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/PerspectiveTransform.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPointCallback.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/FinderPatternInfo.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/FinderPattern.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/FinderPatternFinder.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/AlignmentPatternFinder.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/Version.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/ErrorCorrectionLevel.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/GridSampler.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/DecodeHints.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/detector/MathUtils.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QRDetector.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/QRDetector.cpp
+
+QRFinderPattern.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/QRFinderPattern.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/FinderPattern.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QRFinderPattern.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/QRFinderPattern.cpp
+
+QRFinderPatternFinder.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/QRFinderPatternFinder.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/FinderPatternFinder.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/FinderPattern.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/FinderPatternInfo.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPointCallback.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/DecodeHints.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QRFinderPatternFinder.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/QRFinderPatternFinder.cpp
+
+QRFinderPatternInfo.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/QRFinderPatternInfo.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/FinderPatternInfo.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/FinderPattern.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QRFinderPatternInfo.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/detector/QRFinderPatternInfo.cpp
+
+QRVersion.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/QRVersion.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/Version.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/ErrorCorrectionLevel.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/FormatInformation.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/FormatException.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QRVersion.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/QRVersion.cpp
+
+QRFormatInformation.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/QRFormatInformation.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/FormatInformation.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/ErrorCorrectionLevel.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QRFormatInformation.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/QRFormatInformation.cpp
+
+QRErrorCorrectionLevel.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/QRErrorCorrectionLevel.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/ErrorCorrectionLevel.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QRErrorCorrectionLevel.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/QRErrorCorrectionLevel.cpp
+
+ErrorCorrection.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/ec/ErrorCorrection.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/ec/ErrorCorrection.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/DecoderResult.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Str.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/ec/ModulusGF.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/ec/ModulusPoly.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/ReedSolomonException.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ErrorCorrection.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/ec/ErrorCorrection.cpp
+
+ModulusGF.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/ec/ModulusGF.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/ec/ModulusGF.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/DecoderResult.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Str.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/ec/ModulusPoly.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ModulusGF.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/ec/ModulusGF.cpp
+
+ModulusPoly.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/ec/ModulusPoly.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/ec/ModulusPoly.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/DecoderResult.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Str.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/ec/ModulusGF.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ModulusPoly.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/ec/ModulusPoly.cpp
+
+PDF417BitMatrixParser.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/PDF417BitMatrixParser.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/BitMatrixParser.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/FormatException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o PDF417BitMatrixParser.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/PDF417BitMatrixParser.cpp
+
+PDF417DecodedBitStreamParser.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/PDF417DecodedBitStreamParser.cpp ../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigIntegerUtils.hh \
+		../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigInteger.hh \
+		../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigUnsigned.hh \
+		../QRCodeManagement_Raspi/QZXing/zxing/bigint/NumberlikeArray.hh \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/FormatException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/DecodedBitStreamParser.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Str.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/DecoderResult.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o PDF417DecodedBitStreamParser.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/PDF417DecodedBitStreamParser.cpp
+
+PDF417Decoder.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/PDF417Decoder.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/PDF417Reader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Reader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BinaryBitmap.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Binarizer.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/LuminanceSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Result.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Str.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/DecodeHints.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPointCallback.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/Decoder.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/ec/ErrorCorrection.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/DecoderResult.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/ec/ModulusGF.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/ec/ModulusPoly.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/ReedSolomonException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/BitMatrixParser.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/FormatException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/DecodedBitStreamParser.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigInteger.hh \
+		../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigUnsigned.hh \
+		../QRCodeManagement_Raspi/QZXing/zxing/bigint/NumberlikeArray.hh
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o PDF417Decoder.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/PDF417Decoder.cpp
+
+PDF417Detector.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/detector/PDF417Detector.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/detector/Detector.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Point.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/DetectorResult.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/NotFoundException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BinaryBitmap.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Binarizer.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/LuminanceSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/DecodeHints.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPointCallback.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/detector/LinesSampler.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/GridSampler.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/PerspectiveTransform.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/detector/JavaMath.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/detector/MathUtils.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o PDF417Detector.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/detector/PDF417Detector.cpp
+
+LinesSampler.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/detector/LinesSampler.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/detector/LinesSampler.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Point.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/BitMatrixParser.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/FormatException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/NotFoundException.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qglobal.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o LinesSampler.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/detector/LinesSampler.cpp
+
+PDF417Reader.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/PDF417Reader.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/PDF417Reader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Reader.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BinaryBitmap.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Binarizer.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/LuminanceSource.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Result.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Str.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPoint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/DecodeHints.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPointCallback.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/Decoder.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/ec/ErrorCorrection.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/DecoderResult.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/ec/ModulusGF.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/decoder/ec/ModulusPoly.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/ReedSolomonException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/detector/Detector.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Point.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/DetectorResult.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/NotFoundException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o PDF417Reader.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/pdf417/PDF417Reader.cpp
+
+BigUnsignedInABase.o: ../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigUnsignedInABase.cc ../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigUnsignedInABase.hh \
+		../QRCodeManagement_Raspi/QZXing/zxing/bigint/NumberlikeArray.hh \
+		../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigUnsigned.hh
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o BigUnsignedInABase.o ../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigUnsignedInABase.cc
+
+BigUnsigned.o: ../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigUnsigned.cc ../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigUnsigned.hh \
+		../QRCodeManagement_Raspi/QZXing/zxing/bigint/NumberlikeArray.hh
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o BigUnsigned.o ../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigUnsigned.cc
+
+BigIntegerUtils.o: ../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigIntegerUtils.cc ../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigIntegerUtils.hh \
+		../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigInteger.hh \
+		../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigUnsigned.hh \
+		../QRCodeManagement_Raspi/QZXing/zxing/bigint/NumberlikeArray.hh \
+		../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigUnsignedInABase.hh
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o BigIntegerUtils.o ../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigIntegerUtils.cc
+
+BigIntegerAlgorithms.o: ../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigIntegerAlgorithms.cc ../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigIntegerAlgorithms.hh \
+		../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigInteger.hh \
+		../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigUnsigned.hh \
+		../QRCodeManagement_Raspi/QZXing/zxing/bigint/NumberlikeArray.hh
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o BigIntegerAlgorithms.o ../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigIntegerAlgorithms.cc
+
+BigInteger.o: ../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigInteger.cc ../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigInteger.hh \
+		../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigUnsigned.hh \
+		../QRCodeManagement_Raspi/QZXing/zxing/bigint/NumberlikeArray.hh
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o BigInteger.o ../QRCodeManagement_Raspi/QZXing/zxing/bigint/BigInteger.cc
+
+ByteMatrix.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/ByteMatrix.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/ByteMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ByteMatrix.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/ByteMatrix.cpp
+
+QREncoder.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/QREncoder.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/Encoder.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/CharacterSetECI.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/DecodeHints.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/BarcodeFormat.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ResultPointCallback.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/ErrorCorrectionLevel.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/QRCode.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/Mode.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/Version.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/ByteMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/EncodeHint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/MaskUtil.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/UnsupportedEncodingException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/WriterException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/ReedSolomonEncoder.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/GenericGFPoly.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/GenericGF.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/BlockPair.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers/QList \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers/qevent.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/MatrixUtil.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/StringUtils.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QREncoder.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/QREncoder.cpp
+
+MaskUtil.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/MaskUtil.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/MaskUtil.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/ByteMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MaskUtil.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/MaskUtil.cpp
+
+MatrixUtil.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/MatrixUtil.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/MatrixUtil.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/ByteMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/ErrorCorrectionLevel.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/Version.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/MaskUtil.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/WriterException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/QRCode.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/Mode.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MatrixUtil.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/MatrixUtil.cpp
+
+QRCode.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/QRCode.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/QRCode.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/decoder/Mode.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/Version.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/ErrorCorrectionLevel.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitMatrix.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/BitArray.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ZXing.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/IllegalArgumentException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/ByteMatrix.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QRCode.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/encoder/QRCode.cpp
+
+EncodeHint.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/EncodeHint.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/EncodeHint.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/qrcode/ErrorCorrectionLevel.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/ReaderException.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o EncodeHint.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/EncodeHint.cpp
+
+ReedSolomonEncoder.o: ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/ReedSolomonEncoder.cpp ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/ReedSolomonEncoder.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/GenericGFPoly.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Array.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Counted.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/GenericGF.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/Types.h \
+		../QRCodeManagement_Raspi/QZXing/zxing/zxing/Exception.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ReedSolomonEncoder.o ../QRCodeManagement_Raspi/QZXing/zxing/zxing/common/reedsolomon/ReedSolomonEncoder.cpp
+
 main.o: ../QRCodeManagement_Raspi/main.cpp ../QRCodeManagement_Raspi/mainwindow.h \
 		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
 		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
@@ -870,8 +3195,46 @@ main.o: ../QRCodeManagement_Raspi/main.cpp ../QRCodeManagement_Raspi/mainwindow.
 		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/QApplication \
 		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/qapplication.h \
 		../QRCodeManagement_Raspi/1_Menu/menu.h \
+		../QRCodeManagement_Raspi/2_Manage/manage.h \
 		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/QWidget \
-		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/qwidget.h
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/QTableView \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/qtableview.h \
+		../QRCodeManagement_Raspi/SQLite/database.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QDebug \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qdebug.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QString \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QDateTime \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qdatetime.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSql \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qtsqlglobal.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSqlDatabase \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qsqldatabase.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSqlError \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qsqlerror.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSqlQuery \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSqlQueryModel \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qsqlquerymodel.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QVariantList \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qvariant.h \
+		../QRCodeManagement_Raspi/3_Scan/scan.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/QDesktopWidget \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/qdesktopwidget.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtMultimedia.framework/Headers/QCamera \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtMultimedia.framework/Headers/qcamera.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtMultimediaWidgets.framework/Headers/QCameraViewfinder \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtMultimediaWidgets.framework/Headers/qcameraviewfinder.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtMultimedia.framework/Headers/QCameraImageCapture \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtMultimedia.framework/Headers/qcameraimagecapture.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers/QCloseEvent \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers/qevent.h \
+		../QRCodeManagement_Raspi/4_AddInfo/addinfo.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QTimer \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qtimer.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QDir \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qdir.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../QRCodeManagement_Raspi/main.cpp
 
 mainwindow.o: ../QRCodeManagement_Raspi/mainwindow.cpp ../QRCodeManagement_Raspi/mainwindow.h \
@@ -881,20 +3244,118 @@ mainwindow.o: ../QRCodeManagement_Raspi/mainwindow.cpp ../QRCodeManagement_Raspi
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../QRCodeManagement_Raspi/mainwindow.cpp
 
 menu.o: ../QRCodeManagement_Raspi/1_Menu/menu.cpp ../QRCodeManagement_Raspi/1_Menu/menu.h \
+		../QRCodeManagement_Raspi/2_Manage/manage.h \
 		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/QTableView \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/qtableview.h \
+		../QRCodeManagement_Raspi/SQLite/database.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QDebug \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qdebug.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QString \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QDateTime \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qdatetime.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/QApplication \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/qapplication.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSql \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qtsqlglobal.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSqlDatabase \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qsqldatabase.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSqlError \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qsqlerror.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSqlQuery \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSqlQueryModel \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qsqlquerymodel.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QVariantList \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qvariant.h \
+		../QRCodeManagement_Raspi/3_Scan/scan.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/QDesktopWidget \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/qdesktopwidget.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtMultimedia.framework/Headers/QCamera \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtMultimedia.framework/Headers/qcamera.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtMultimediaWidgets.framework/Headers/QCameraViewfinder \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtMultimediaWidgets.framework/Headers/qcameraviewfinder.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtMultimedia.framework/Headers/QCameraImageCapture \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtMultimedia.framework/Headers/qcameraimagecapture.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QFile \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qfile.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers/QCloseEvent \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers/qevent.h \
+		../QRCodeManagement_Raspi/4_AddInfo/addinfo.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QTimer \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qtimer.h \
 		ui_menu.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o menu.o ../QRCodeManagement_Raspi/1_Menu/menu.cpp
 
 manage.o: ../QRCodeManagement_Raspi/2_Manage/manage.cpp ../QRCodeManagement_Raspi/2_Manage/manage.h \
 		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/QTableView \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/qtableview.h \
+		../QRCodeManagement_Raspi/SQLite/database.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QDebug \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qdebug.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QString \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QDateTime \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qdatetime.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/QApplication \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/qapplication.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSql \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qtsqlglobal.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSqlDatabase \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qsqldatabase.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSqlError \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qsqlerror.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSqlQuery \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSqlQueryModel \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qsqlquerymodel.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QVariantList \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qvariant.h \
 		ui_manage.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o manage.o ../QRCodeManagement_Raspi/2_Manage/manage.cpp
 
 scan.o: ../QRCodeManagement_Raspi/3_Scan/scan.cpp ../QRCodeManagement_Raspi/3_Scan/scan.h \
 		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/QTableView \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/qtableview.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/QDesktopWidget \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/qdesktopwidget.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtMultimedia.framework/Headers/QCamera \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtMultimedia.framework/Headers/qcamera.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtMultimediaWidgets.framework/Headers/QCameraViewfinder \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtMultimediaWidgets.framework/Headers/qcameraviewfinder.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtMultimedia.framework/Headers/QCameraImageCapture \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtMultimedia.framework/Headers/qcameraimagecapture.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QString \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QFile \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qfile.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers/QCloseEvent \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtGui.framework/Headers/qevent.h \
+		../QRCodeManagement_Raspi/SQLite/database.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QDebug \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qdebug.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QDateTime \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qdatetime.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/QApplication \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/qapplication.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSql \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qtsqlglobal.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSqlDatabase \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qsqldatabase.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSqlError \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qsqlerror.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSqlQuery \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSqlQueryModel \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qsqlquerymodel.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QVariantList \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qvariant.h \
 		ui_scan.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o scan.o ../QRCodeManagement_Raspi/3_Scan/scan.cpp
 
@@ -916,10 +3377,14 @@ addinfo.o: ../QRCodeManagement_Raspi/4_AddInfo/addinfo.cpp ../QRCodeManagement_R
 		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qsqlerror.h \
 		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSqlQuery \
 		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSqlQueryModel \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qsqlquerymodel.h \
 		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QVariantList \
 		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qvariant.h \
 		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/QWidget \
 		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QTimer \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qtimer.h \
 		ui_addinfo.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o addinfo.o ../QRCodeManagement_Raspi/4_AddInfo/addinfo.cpp
 
@@ -940,12 +3405,20 @@ database.o: ../QRCodeManagement_Raspi/SQLite/database.cpp ../QRCodeManagement_Ra
 		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qsqlerror.h \
 		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSqlQuery \
 		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/QSqlQueryModel \
+		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtSql.framework/Headers/qsqlquerymodel.h \
 		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/QVariantList \
 		../../../Qt_OpenSource/5.11.0/clang_64/lib/QtCore.framework/Headers/qvariant.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o database.o ../QRCodeManagement_Raspi/SQLite/database.cpp
 
 qrc_qresource.o: qrc_qresource.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_qresource.o qrc_qresource.cpp
+
+moc_ImageHandler.o: moc_ImageHandler.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_ImageHandler.o moc_ImageHandler.cpp
+
+moc_QZXing.o: moc_QZXing.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_QZXing.o moc_QZXing.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
@@ -964,9 +3437,20 @@ moc_addinfo.o: moc_addinfo.cpp
 
 ####### Install
 
-install:  FORCE
+install_target: first FORCE
+	@test -d $(INSTALL_ROOT)/lib || mkdir -p $(INSTALL_ROOT)/lib
+	$(DEL_FILE) -r $(INSTALL_ROOT)/lib/QRCodeManagement_Raspi.app
+	
+	-$(QINSTALL) QRCodeManagement_Raspi.app $(INSTALL_ROOT)/lib/QRCodeManagement_Raspi.app
 
-uninstall:  FORCE
+uninstall_target: FORCE
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/lib/QRCodeManagement_Raspi.app
+	-$(DEL_DIR) $(INSTALL_ROOT)/lib/ 
+
+
+install: install_target  FORCE
+
+uninstall: uninstall_target  FORCE
 
 FORCE:
 

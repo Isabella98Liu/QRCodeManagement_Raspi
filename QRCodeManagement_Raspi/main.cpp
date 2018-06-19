@@ -3,6 +3,7 @@
 #include "1_Menu/menu.h"
 
 #include <QApplication>
+#include <QDir>
 
 int main(int argc, char *argv[])
 {
@@ -11,6 +12,8 @@ int main(int argc, char *argv[])
     //Load QSS style sheet
     QssLoad::setStyle(":/qss/QSS/Style.qss");
 
+    //Creat folder to save captured pictures
+    QDir(qApp->applicationDirPath()).mkdir("QRCodes");
     Menu menu;
     menu.show();
 
