@@ -45,6 +45,11 @@ void Scan::decodeQRCode(QImage img)
     ui->tableView->setModel(database.DatabaseSelect(result));
 }
 
+void Scan::closeEvent(QCloseEvent *event)
+{
+    delete this;
+}
+
 //---------------------------SLOTS-----------------------------
 
 void Scan::on_pushButton_clicked()  //  if the search button was clicked
@@ -64,8 +69,7 @@ void Scan::saveImage(int i, QImage img)
 {
     QString fileName = folderfath + index;
     if(!img.isNull())
-    {
-        qDebug() << fileName + "scanPic.jpg";
+    {   
         QFile file(QString(fileName + "1.jpg"));
         file.open(QIODevice::WriteOnly);
         img.save(&file, "JPG");

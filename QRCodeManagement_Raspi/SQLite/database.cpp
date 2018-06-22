@@ -5,12 +5,12 @@ Database::Database()
     database = QSqlDatabase::addDatabase("QSQLITE");    //  link to a database
     folderPath = qApp->applicationDirPath();    //  get the directory path of the applicaiton
     database.setDatabaseName(QString(folderPath + "/Record.db"));   //  rename the database, if the database does not exists, then create, else if it exists, then use it
-    database.open();
-    QString count_sql_table = "SELECT COUNT(*) FROM RECORD";
-    QSqlQuery sql_query;
-    sql_query.prepare(count_sql_table);
-    sql_query.exec();
-    qDebug() << sql_query.last();
+//    database.open();
+//    QString count_sql_table = "SELECT COUNT(*) FROM RECORD";
+//    QSqlQuery sql_query;
+//    sql_query.prepare(count_sql_table);
+//    sql_query.exec();
+//    qDebug() << sql_query.last();
 
 }
 
@@ -25,6 +25,10 @@ void Database::DatabaseOperate()    //  operations to the daatabse
 
 void Database::DatabaseCreate()  //  create the table
 {
+    while(!database.isOpen())
+    {
+        database.open();
+    }
     if(database.open())
     {
         QSqlQuery sql_query;
@@ -48,7 +52,11 @@ void Database::DatabaseCreate()  //  create the table
 
 void Database::DatabaseInsert(Record* record)   //  Insert the input record into the table RECORD
 {
-    if(database.open())
+    while(!database.isOpen())
+    {
+        database.open();
+    }
+    if(database.isOpen())
     {
         QSqlQuery sql_query;
         QString insert_sql = "INSERT INTO RECORD VALUES (?,?,?,?,?)";   //  insert values into table
@@ -94,6 +102,10 @@ void Database::DatabaseInsert(Record* record)   //  Insert the input record into
 
 QSqlQueryModel* Database::DatabaseSelect(QString StdID_index) //  select the specific record according to [index]
 {
+    while(!database.isOpen())
+    {
+        database.open();
+    }
     QSqlQueryModel *model = new QSqlQueryModel;
     model->setQuery(QString("SELECT * FROM RECORD WHERE StdID = '%1'").arg(StdID_index));
     model->setHeaderData(0, Qt::Horizontal, "学号");
@@ -109,14 +121,15 @@ bool Database::DatabaseTableCheck(QString Name) // Check if the [Name] Table exi
     QSqlQuery sql_query;
     QString check_sql = "SELECT COUNT(*) FROM SQLITE_MASTER WHERE TYPE='TABLE' AND NAME='%1'";
     sql_query.prepare(check_sql.arg(Name));
-    if(!sql_query.exec())
+    sql_query.exec();
+    if(!sql_query.last())
     {
         qDebug() << "There Is No Table Named:" + Name;
         return false;
     }
     else
     {
-        qDebug() << "Table Named:" + Name + " Already Exists!";
+        qDebug() << "Table Named: " + Name + " Already Exists!";
         return true;
     }
     return false;
@@ -124,6 +137,10 @@ bool Database::DatabaseTableCheck(QString Name) // Check if the [Name] Table exi
 
 QSqlQueryModel* Database::DatabaseTableView()   //  show all table record in table
 {
+    while(!database.isOpen())
+    {
+        database.open();
+    }
     QSqlQueryModel *model = new QSqlQueryModel;
     model->setQuery("SELECT * FROM RECORD");
     model->setHeaderData(0, Qt::Horizontal, "学号");

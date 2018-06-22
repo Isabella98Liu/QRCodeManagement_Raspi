@@ -16,8 +16,8 @@
   <widget class="QLineEdit" name="StdID">
    <property name="geometry">
     <rect>
-     <x>130</x>
-     <y>150</y>
+     <x>160</x>
+     <y>120</y>
      <width>121</width>
      <height>21</height>
     </rect>
@@ -26,7 +26,7 @@
   <widget class="QLineEdit" name="Name">
    <property name="geometry">
     <rect>
-     <x>130</x>
+     <x>160</x>
      <y>190</y>
      <width>121</width>
      <height>24</height>
@@ -36,8 +36,8 @@
   <widget class="QLineEdit" name="College">
    <property name="geometry">
     <rect>
-     <x>130</x>
-     <y>230</y>
+     <x>160</x>
+     <y>260</y>
      <width>121</width>
      <height>24</height>
     </rect>
@@ -46,8 +46,8 @@
   <widget class="QLineEdit" name="Major">
    <property name="geometry">
     <rect>
-     <x>130</x>
-     <y>270</y>
+     <x>160</x>
+     <y>330</y>
      <width>121</width>
      <height>24</height>
     </rect>
@@ -56,8 +56,8 @@
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
-     <x>400</x>
-     <y>180</y>
+     <x>390</x>
+     <y>200</y>
      <width>161</width>
      <height>71</height>
     </rect>
@@ -95,6 +95,58 @@
    </property>
    <property name="text">
     <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>120</y>
+     <width>51</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>学号：</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>190</y>
+     <width>51</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>姓名：</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>260</y>
+     <width>51</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>学院：</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>330</y>
+     <width>51</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>专业：</string>
    </property>
   </widget>
  </widget>

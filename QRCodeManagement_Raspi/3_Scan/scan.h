@@ -11,6 +11,7 @@
 #include <QFile>
 #include <QCloseEvent>
 #include <QTimer>
+#include <QCloseEvent>
 #include <QZXing.h>
 
 #include "SQLite/database.h"
@@ -46,6 +47,9 @@ signals:
 
 private:
     Ui::Scan *ui;
+
+protected:
+    void closeEvent(QCloseEvent *event);
 
 };
 

@@ -8,6 +8,9 @@
 #include <QDebug>
 #include <QString>
 #include <QTimer>
+#include <QProcess>
+#include <QApplication>
+#include <QDesktopWidget>
 
 namespace Ui {
 class AddInfo;
@@ -21,6 +24,7 @@ public:
     explicit AddInfo(QWidget *parent = 0);
     ~AddInfo();
     Database database;
+    void PrintCode(QString info);
 
 private slots:
     void on_pushButton_clicked();

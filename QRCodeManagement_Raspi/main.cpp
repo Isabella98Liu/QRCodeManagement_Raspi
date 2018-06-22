@@ -1,9 +1,9 @@
 #include "mainwindow.h"
-#include "Qss/qss.h"
+#include "QSS/qss.h"
 #include "1_Menu/menu.h"
 
-#include <QApplication>
 #include <QDir>
+#include <QDebug>
 
 int main(int argc, char *argv[])
 {

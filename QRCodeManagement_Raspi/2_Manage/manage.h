@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include <QTableView>
+#include <QDesktopWidget>
+
 #include "SQLite/database.h"
 
 namespace Ui {

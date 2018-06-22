@@ -4,7 +4,9 @@
 #include "2_Manage/manage.h"
 #include "3_Scan/scan.h"
 #include "4_AddInfo/addinfo.h"
+
 #include <QWidget>
+#include <QDesktopWidget>
 
 namespace Ui {
 class Menu;
